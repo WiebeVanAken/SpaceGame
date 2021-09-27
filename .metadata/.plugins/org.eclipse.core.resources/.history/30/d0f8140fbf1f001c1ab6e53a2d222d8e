@@ -1,0 +1,4 @@
+module com.yaeger.spacesimulator {
+    requires javafx.controls;
+    exports com.yaeger.spacesimulator;
+}
