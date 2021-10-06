@@ -1,4 +1,4 @@
-package yaeger.spacesimulator;
+package com.yaeger.spacesimulator;
 
 import org.testng.annotations.Test;
 
