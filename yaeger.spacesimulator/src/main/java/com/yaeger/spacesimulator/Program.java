@@ -1,6 +1,7 @@
 package com.yaeger.spacesimulator;
 
 import com.github.hanyaeger.api.YaegerGame;
+import com.yaeger.spacesimulator.scenes.SimulationScene;
 
 public class Program extends YaegerGame {
 
@@ -19,7 +20,7 @@ public class Program extends YaegerGame {
 	@Override
 	public void setupScenes() {
 		// TODO Auto-generated method stub
-		
+		this.addScene(0, new SimulationScene());
 	}
 
 }
