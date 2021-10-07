@@ -1,4 +1,4 @@
-package com.yaeger.spacesimulator.shared.entities;
+package com.yaeger.spacesimulator.entities.text;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -20,8 +20,8 @@ public class CompositeTitle extends CompositeEntity {
 		TextValue titleEntity = new TextValue(new Coordinate2D(), title);
 		SubTextValue subtitleEntity = new SubTextValue(new Coordinate2D(title.length() * 12, 0), subtitle);
 
-		titleEntity.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
-		subtitleEntity.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
+		titleEntity.setAnchorPoint(AnchorPoint.CENTER_LEFT);
+		subtitleEntity.setAnchorPoint(AnchorPoint.CENTER_LEFT);
 
 		addEntity(titleEntity);
 		addEntity(subtitleEntity);

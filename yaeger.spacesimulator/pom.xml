@@ -20,12 +20,6 @@
             <artifactId>yaeger</artifactId>
             <version>2021.2022.1</version>
         </dependency>
-        <dependency>
-		    <groupId>org.testng</groupId>
-		    <artifactId>testng</artifactId>
-		    <version>7.4.0</version>
-		    <scope>test</scope>
-		</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -43,8 +37,6 @@
                 <version>0.0.6</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running -->
-                        <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>com.yaeger.spacesimulator.App</mainClass>
