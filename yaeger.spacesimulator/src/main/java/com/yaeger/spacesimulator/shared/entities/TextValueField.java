@@ -6,18 +6,18 @@ import com.github.hanyaeger.api.entities.CompositeEntity;
 
 public class TextValueField extends CompositeEntity {
 
-	private TextValue _valueField;
+	private TextValue valueField;
 
 	public TextValueField(Coordinate2D initialLocation, String initialValue) {
 		super(initialLocation);
-		_valueField = new TextValue(new Coordinate2D(5, 5), initialValue);
+		valueField = new TextValue(new Coordinate2D(5, 5), initialValue);
 	}
 
 	@Override
 	protected void setupEntities() {
-		var valueFieldWrapper = new ValueFieldWrapper(new Coordinate2D(0, 0), new Size(100, 30));
+		var valueFieldWrapper = new EntityWrapper(new Coordinate2D(0, 0), new Size(100, 30));
 		addEntity(valueFieldWrapper);
-		addEntity(_valueField);
+		addEntity(valueField);
 	}
 
 }
