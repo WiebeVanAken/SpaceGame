@@ -1,4 +1,4 @@
-package com.yaeger.spacesimulator.entities;
+package com.yaeger.spacesimulator.ui.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;

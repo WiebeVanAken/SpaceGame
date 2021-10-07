@@ -1,10 +1,10 @@
-package com.yaeger.spacesimulator.entities.text;
+package com.yaeger.spacesimulator.ui.entities.text;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import com.yaeger.spacesimulator.entities.EntityWrapper;
+import com.yaeger.spacesimulator.ui.entities.EntityWrapper;
 
 public class TextValueField extends CompositeEntity {
 

@@ -1,4 +1,4 @@
-package com.yaeger.spacesimulator.entities.controls;
+package com.yaeger.spacesimulator.ui.entities.controls;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
@@ -18,7 +18,6 @@ public class Slider extends CompositeEntity {
 
 	@Override
 	protected void setupEntities() {
-
 	}
 
 }
