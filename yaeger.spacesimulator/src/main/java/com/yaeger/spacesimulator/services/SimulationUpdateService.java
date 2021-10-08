@@ -10,7 +10,7 @@ public class SimulationUpdateService {
 
 	private SimulationUpdateService() { }
 	
-	public void simulate(ArrayList<Simulatable> simulatables) {
+	public void updateSimulatíon(ArrayList<Simulatable> simulatables) {
 		simulatables.forEach(obj -> {
 			obj.setSimulatableDirection(new Coordinate2D(1, -1));
 			obj.setVelocity(1);
