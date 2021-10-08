@@ -6,7 +6,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.yaeger.spacesimulator.entities.Planet;
-import com.yaeger.spacesimulator.entities.Simulatable;
+import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
 
 import javafx.scene.paint.Color;
@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 public class SimulationScene extends DynamicScene implements UpdateExposer {
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 	
-	private ArrayList<Simulatable> objects = new ArrayList<Simulatable>();
+	private ArrayList<SimulationObject> objects = new ArrayList<SimulationObject>();
 	
 	@Override
 	public void setupScene() {
@@ -22,20 +22,15 @@ public class SimulationScene extends DynamicScene implements UpdateExposer {
 	}
 
 	@Override
-	public void setupEntities() {
-		objects.add(new Planet(new Coordinate2D(10, 10)));
-		objects.add(new Planet(new Coordinate2D(10, 20)));
-		objects.add(new Planet(new Coordinate2D(10, 30)));
-		objects.add(new Planet(new Coordinate2D(10, 40)));
-		objects.add(new Planet(new Coordinate2D(10, 50)));
-		objects.add(new Planet(new Coordinate2D(10, 60)));
+	public void setupEntities() { 
+		objects.add(new Planet(new Coordinate2D(10, 10), new Coordinate2D(1, 0), 1, 100, 10, new Color(0.70D, 0.70D, 0.70D, 1.0D)));
 		
-		objects.forEach(obj -> { this.addEntity((Planet)obj); });
+		objects.forEach(obj -> { this.addEntity(obj); });
 	}
 	
 	@Override
 	public void explicitUpdate(long timestamp) {
 		// TODO Auto-generated method stub
-		simulationUpdater.simulate(objects);
+		simulationUpdater.updateSimulation(objects);
 	}
 }

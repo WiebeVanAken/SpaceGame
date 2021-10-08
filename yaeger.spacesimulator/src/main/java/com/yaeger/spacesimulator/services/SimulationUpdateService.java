@@ -2,18 +2,16 @@ package com.yaeger.spacesimulator.services;
 
 import java.util.ArrayList;
 
-import com.github.hanyaeger.api.Coordinate2D;
-import com.yaeger.spacesimulator.entities.Simulatable;
+import com.yaeger.spacesimulator.entities.SimulationObject;
 
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 
 	private SimulationUpdateService() { }
 	
-	public void updateSimulatíon(ArrayList<Simulatable> simulatables) {
+	public void updateSimulation(ArrayList<SimulationObject> simulatables) {
 		simulatables.forEach(obj -> {
-			obj.setSimulatableDirection(new Coordinate2D(1, -1));
-			obj.setVelocity(1);
+			obj.setVelocity(obj.getVelocity() * 1.01);
 		});
 		
 		simulatables.forEach(obj -> {
