@@ -53,6 +53,9 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	}
 	
 	public void updateMovement() {
-		this.setMotion(this.velocity, this.movementDirection.angle(0, -1));
+		double angle = this.movementDirection.angle(0, 1);
+//		
+//		System.out.println(String.format("ANGLE %f", angle));
+		this.setMotion(this.velocity, angle);
 	}
 }
