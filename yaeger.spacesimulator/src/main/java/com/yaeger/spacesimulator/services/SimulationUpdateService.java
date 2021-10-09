@@ -13,10 +13,6 @@ public class SimulationUpdateService {
 	
 	public void updateSimulation(ArrayList<SimulationObject> simulatables) {
 		simulatables.forEach(obj -> {
-			obj.setVelocity(1);
-		});
-		
-		simulatables.forEach(obj -> {
 			obj.updateMovement();
 		});
 	}

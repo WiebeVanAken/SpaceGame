@@ -13,6 +13,7 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	
 	public SimulationObject(Coordinate2D initialLocation, Coordinate2D movementDirection, double velocity, double volume, double density) {
 		super(initialLocation);
+		
 		this.velocity = velocity;
 		this.volume = volume;
 		this.density = density;
@@ -64,8 +65,8 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	private double calculateAngle(Coordinate2D dir) {
 		Point2D normDir = dir.normalize();
 		return (normDir.getX() >= 0 
-				? new Point2D(0, 1).angle(normDir)
-				: new Point2D(0, -1).angle(normDir) + 180
-			);
+			? new Point2D(0, 1).angle(normDir)
+			: new Point2D(0, -1).angle(normDir) + 180
+		);
 	}
 }
