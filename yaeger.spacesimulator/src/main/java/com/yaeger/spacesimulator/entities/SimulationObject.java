@@ -37,14 +37,14 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	}
 
 	public double getVelocity() {
-		return this.velocity;
+		return this.movementDirection.magnitude();
 	}
 
 	public void setVelocity(double velocity) {
-		this.velocity = velocity;
+		this.movementDirection.add(movementDirection.getX() * velocity - movementDirection.getX(), movementDirection.getY() * velocity - movementDirection.getY());
 	}
 
-	public Coordinate2D getSimulatableDirection() {
+	public Coordinate2D getMovementDirection() {
 		return this.movementDirection;
 	}
 	
@@ -63,16 +63,9 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	
 	private double calculateAngle(Coordinate2D dir) {
 		Point2D normDir = dir.normalize();
-		double angle = 0;
-		
-		if(normDir.getX() >= 0) {
-			angle = new Point2D(0, 1).angle(normDir);
-		}
-		
-		if(normDir.getX() < 0) {
-			angle = new Point2D(0, -1).angle(normDir) + 180;
-		}
-		System.out.println(angle);
-		return angle;
+		return (normDir.getX() >= 0 
+				? new Point2D(0, 1).angle(normDir)
+				: new Point2D(0, -1).angle(normDir) + 180
+			);
 	}
 }

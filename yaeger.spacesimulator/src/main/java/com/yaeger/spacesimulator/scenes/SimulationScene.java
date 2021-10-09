@@ -30,14 +30,6 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 
 	@Override
 	public void setupEntities() {
-		System.out.println("RED");
-		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(0, -1), 1.d, 10.d, 1.d, Color.RED)); //0
-		System.out.println("BLUE");
-		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(1, 0), 1.d, 10.d, 1.d, Color.BLUE)); //90
-		System.out.println("YELLOW");
-		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(0, 1), 1.d, 10.d, 1.d, Color.YELLOW)); //180
-		System.out.println("GREEN");
-		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(-1, 0), 1.d, 10.d, 1.d, Color.GREEN)); //270
 		objects.forEach(obj -> { this.addEntity(obj); });
 	}
 	
@@ -47,7 +39,8 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 	}
 	
 	private void placePlanet(ObjectPlacementData data) {
-		Planet planet = new Planet(data.getStartPosition(), data.getDirection(), data.getVolume(), data.getDensity(), data.getVelocity(), data.getColor() );
+		Planet planet = new Planet(data.getStartPosition(), data.getDirection(), data.getVelocity() / 10, 10, 1, data.getColor() );
+		
 		this.objects.add(planet);
 		this.addEntity(planet);
 	}
