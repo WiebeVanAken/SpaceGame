@@ -4,11 +4,23 @@ import com.github.hanyaeger.api.Coordinate2D;
 
 import javafx.geometry.Point2D;
 
+/**
+ * @author Wiebe van Aken
+ * @version 1.0.0
+ * 
+ * An {@link AngleCalculatorService} is a helper service to calculate movement vector angles.
+ * The general purpose of this service is to make sure angles are correct, due to the weird behavior of {@link Point2D.getAngle(double x, double y)}.
+ */
 public class AngleCalculatorService {
 	private static AngleCalculatorService instance;
 
 	private AngleCalculatorService() { }
 	
+	/**
+	 * Calculate the angle (in degrees) the input vector is at.
+	 * @param dir is the input vector to use for calculating.
+	 * @return the angle (in degrees) of the input vector.
+	 */
 	public double calculateAngle(Coordinate2D dir) {
 		Point2D normDir = dir.normalize();
 		return (normDir.getX() >= 0 
@@ -17,6 +29,10 @@ public class AngleCalculatorService {
 		);
 	}
 	
+	/**
+	 * Retrieve an instance of this service class
+	 * @return an instance of this singleton service class
+	 */
 	public static AngleCalculatorService getInstance() {
 		if(instance == null) {
 			instance = new AngleCalculatorService();
