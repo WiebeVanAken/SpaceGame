@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.yaeger.spacesimulator.entities.SimulationObject;
 
+import javafx.geometry.Point2D;
+
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 
@@ -11,7 +13,7 @@ public class SimulationUpdateService {
 	
 	public void updateSimulation(ArrayList<SimulationObject> simulatables) {
 		simulatables.forEach(obj -> {
-			obj.setVelocity(obj.getVelocity() * 1.01);
+			obj.setVelocity(obj.getVelocity() * 0.95);
 		});
 		
 		simulatables.forEach(obj -> {

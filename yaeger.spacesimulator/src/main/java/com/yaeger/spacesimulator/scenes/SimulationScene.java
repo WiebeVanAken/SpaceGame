@@ -17,7 +17,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
-public class SimulationScene extends DynamicScene implements UpdateExposer, MouseButtonPressedListener, MouseButtonReleasedListener, MouseMovedWhileDraggingListener {
+public class SimulationScene extends DynamicScene implements UpdateExposer, MouseButtonReleasedListener, MouseMovedWhileDraggingListener {
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 	
 	private ArrayList<SimulationObject> objects = new ArrayList<SimulationObject>();
@@ -29,7 +29,15 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 	}
 
 	@Override
-	public void setupEntities() { 
+	public void setupEntities() {
+		System.out.println("RED");
+		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(0, -1), 1.d, 10.d, 1.d, Color.RED)); //0
+		System.out.println("BLUE");
+		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(1, 0), 1.d, 10.d, 1.d, Color.BLUE)); //90
+		System.out.println("YELLOW");
+		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(0, 1), 1.d, 10.d, 1.d, Color.YELLOW)); //180
+		System.out.println("GREEN");
+		objects.add(new Planet(new Coordinate2D(100, 100), new Coordinate2D(-1, 0), 1.d, 10.d, 1.d, Color.GREEN)); //270
 		objects.forEach(obj -> { this.addEntity(obj); });
 	}
 	
@@ -45,26 +53,7 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 	}
 	
 	@Override
-	public void onMouseButtonPressed(MouseButton button, Coordinate2D coordinate2d) {
-		// TODO Auto-generated method stub
-		System.out.println(String.format("CLICKED %s - %f, %f", button.name(), coordinate2d.getX(), coordinate2d.getY()));
-	}
-	
-	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D coordinate2d) {
-		// TODO Auto-generated method stub3
-		Point2D dir = data.getDirection();
-		double angleRad = Math.atan2(dir.getY(),  dir.getX());
-		double angleDeg = angleRad * 180 / Math.PI + 90;
-		
-		if(dir.getX() < 0 && dir.getY() < 0) {
-			angleDeg += 360;
-		}
-		
-		//System.out.println(String.format("RELEASED %s - %f, %f", button.name(), coordinate2d.getX(), coordinate2d.getY()));
-		System.out.println(String.format("DIFF %f, %f", dir.getX(), dir.getY()));
-		System.out.println(String.format("ANGLE %f", angleDeg));
-		
 		if(button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
 			placePlanet(data);
 			data.reset();
