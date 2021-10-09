@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import com.yaeger.spacesimulator.entities.SimulationObject;
 
-import javafx.geometry.Point2D;
-
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 

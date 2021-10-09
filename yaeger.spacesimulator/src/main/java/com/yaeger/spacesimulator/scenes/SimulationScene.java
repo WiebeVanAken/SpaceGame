@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
 import com.yaeger.spacesimulator.data.ObjectPlacementData;
 import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
-
-import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
@@ -46,7 +43,7 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 	}
 	
 	@Override
-	public void onMouseButtonReleased(MouseButton button, Coordinate2D coordinate2d) {
+	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
 		if(button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
 			placePlanet(data);
 			data.reset();
@@ -54,11 +51,11 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 	}
 	
 	@Override
-	public void onMouseMovedWhileDragging(Coordinate2D coordinate2d) {
+	public void onMouseMovedWhileDragging(Coordinate2D mousePos) {
 		if(data.getPlacing()) {
-			data.setStopPosition(coordinate2d);
+			data.setStopPosition(mousePos);
 		} else {
-			data.setStartPosition(coordinate2d);
+			data.setStartPosition(mousePos);
 			data.setPlacing(true);
 		}
 	}

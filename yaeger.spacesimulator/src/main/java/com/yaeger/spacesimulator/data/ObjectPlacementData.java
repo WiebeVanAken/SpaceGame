@@ -73,12 +73,6 @@ public class ObjectPlacementData {
 	public Color getColor() {
 		return this.color;
 	}
-
-	@Override
-	public String toString() {
-		return "ObjectPlacementData [density=" + density + ", volume=" + volume + ", startPosition=" + startPosition
-				+ ", stopPosition=" + stopPosition + ", placing=" + placing + ", color=" + color + "]";
-	}
 	
 	
 }
