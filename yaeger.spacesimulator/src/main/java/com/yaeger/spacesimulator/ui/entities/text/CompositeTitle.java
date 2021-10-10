@@ -17,8 +17,8 @@ public class CompositeTitle extends CompositeEntity {
 
 	@Override
 	protected void setupEntities() {
-		TextValue titleEntity = new TextValue(new Coordinate2D(), title);
-		SubTextValue subtitleEntity = new SubTextValue(new Coordinate2D(title.length() * 12, 0), subtitle);
+		Value titleEntity = new Value(new Coordinate2D(), title);
+		SubTextValue subtitleEntity = new SubTextValue(new Coordinate2D(title.length() * 11, 0), subtitle);
 
 		titleEntity.setAnchorPoint(AnchorPoint.CENTER_LEFT);
 		subtitleEntity.setAnchorPoint(AnchorPoint.CENTER_LEFT);

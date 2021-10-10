@@ -1,33 +1,63 @@
 package com.yaeger.spacesimulator.ui.entities.text;
 
+import java.text.Format;
+
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
+import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
 
-public class TitleValuePair extends CompositeEntity {
+public class TitleValuePair<T> extends CompositeEntity implements IUpdatableValue<T> {
 
+	private ValueField<T> valueField;
 	private String title;
 	private String subtitle;
-	private String value;
-	private int width;
 
-	public TitleValuePair(Coordinate2D initialLocation, String title, String initialValue, int width) {
+	private TitleValuePair(Coordinate2D initialLocation, String title) {
 		super(initialLocation);
 		this.title = title;
-		this.value = initialValue;
-		this.width = width;
 	}
 
-	public TitleValuePair(Coordinate2D initialLocation, String title, String initialValue, String subtitle, int width) {
-		this(initialLocation, title, initialValue, width);
+	public TitleValuePair(Coordinate2D initialLocation, String title, T initialValue, double width) {
+		this(initialLocation, title);
+		valueField = new ValueField<T>(new Coordinate2D(0, 25), width, initialValue);
+	}
+
+	public TitleValuePair(Coordinate2D initialLocation, String title, T initialValue, double width,
+			String valueFormat) {
+		this(initialLocation, title);
+		valueField = new ValueField<T>(new Coordinate2D(0, 25), width, initialValue, valueFormat);
+	}
+
+	public TitleValuePair(Coordinate2D initialLocation, String title, T initialValue, double width,
+			Format valueFormatter) {
+		this(initialLocation, title);
+		valueField = new ValueField<T>(new Coordinate2D(0, 25), width, initialValue, valueFormatter);
+	}
+
+	public void setSubtitle(String subtitle) {
 		this.subtitle = subtitle;
 	}
 
 	@Override
 	protected void setupEntities() {
-		CompositeTitle compositeTitleEntity = new CompositeTitle(new Coordinate2D(), title, subtitle);
-		TextValueField textValueFieldEntity = new TextValueField(new Coordinate2D(width, 0), value);
-		addEntity(compositeTitleEntity);
-		addEntity(textValueFieldEntity);
+		CompositeTitle compositeTitle = new CompositeTitle(new Coordinate2D(), title, subtitle);
+		addEntity(compositeTitle);
+		addEntity(valueField);
+	}
+
+	@Override
+	public void setValue(T value) {
+		valueField.setValue(value);
+	}
+
+	@Override
+	public void setFormat(String format) {
+		valueField.setFormat(format);
+	}
+
+	@Override
+	public void setFormatter(Format formatter) {
+		valueField.setFormatter(formatter);
 	}
 
 }
