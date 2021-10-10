@@ -17,7 +17,7 @@ public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 	
 	private SimulationUpdateService() { }
-	private final double GRAV_CONST = 0.1D;
+	private final double GRAV_CONST = Double.parseDouble(ConfigService.getValue("gravity-constant"));
 	
 	/**
 	 * Calculate & update all the positions of the simulationobjects in the scene

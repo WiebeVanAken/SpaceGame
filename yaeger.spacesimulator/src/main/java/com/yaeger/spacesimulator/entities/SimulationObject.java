@@ -2,7 +2,6 @@ package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
-import com.yaeger.spacesimulator.data.ObjectPlacementData;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
 
 /**
