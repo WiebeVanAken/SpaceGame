@@ -2,7 +2,6 @@ package com.yaeger.spacesimulator.services;
 
 import java.util.ArrayList;
 
-import com.github.hanyaeger.api.Coordinate2D;
 import com.yaeger.spacesimulator.entities.SimulationObject;
 
 import javafx.geometry.Point2D;
@@ -18,7 +17,7 @@ public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 	
 	private SimulationUpdateService() { }
-	private final double GRAV_CONST = 0.0001D;
+	private final double GRAV_CONST = 0.1D;
 	
 	/**
 	 * Calculate & update all the positions of the simulationobjects in the scene
@@ -38,7 +37,10 @@ public class SimulationUpdateService {
 				
 				forceDir = otherBody.getPosition().subtract(body.getPosition()).normalize();
 				force = forceDir.multiply(GRAV_CONST * body.getMass() * otherBody.getMass() / distanceSquared);
+				acceleration = new Point2D(force.getX() / body.getMass(), force.getY() / body.getMass());
 				
+				body.setVelocity(body.getVelocity().add(acceleration));
+				System.out.println(body.getVelocity());
 			}
 		}
 		

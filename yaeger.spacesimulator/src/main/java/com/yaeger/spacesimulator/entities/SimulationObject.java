@@ -1,7 +1,9 @@
 package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
+import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
 
 /**
@@ -16,25 +18,22 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	private double movementAngle;
 	
 	protected double volume, density;
-	protected Coordinate2D movementDirection;
+	protected Coordinate2D velocity;
 
 	/**
 	 * Construct a new {@link SimulationObject}
 	 * @param initialLocation is the location this object appears at on the screen
-	 * @param movementDirection is the direction this object moves when the simulation is running
-	 * @param velocity is the initial velocity this object uses to move along the screen
+	 * @param velocity is the direction this object moves when the simulation is running
 	 * @param volume is the initial weight of this object
 	 * @param density is the initial density of this object
 	 */
-	public SimulationObject(Coordinate2D initialLocation, Coordinate2D movementDirection, double velocity, double volume, double density) {
+	public SimulationObject(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density) {
 		super(initialLocation);
 		this.volume = volume;
 		this.density = density;
-
-		this.setMovementDirection(movementDirection);
 		this.setVelocity(velocity);
 	}
-	
+
 	/**
 	 * Return the volume of this simulatable object.
 	 * @return The volume of this simulatable object.
@@ -66,43 +65,23 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	public void setDensity(double density) {
 		this.density = density;
 	}
-
-	/**
-	 * Get the velocity (movement speed) of this simulatable object. 
-	 * @return The speed this object uses to move over the screen.
-	 */
-	public double getVelocity() {
-		return this.movementDirection.magnitude();
-	}
-
-	/**
-	 * Set the velocity (movement speed) of this simulatable object.
-	 * This speed represents the rate at which the object moves around the screen.
-	 * @param velocity is the new rate this object will move at.
-	 */
-	public void setVelocity(double velocity) {
-		this.movementDirection.add(
-			movementDirection.getX() * velocity - movementDirection.getX(),
-			movementDirection.getY() * velocity - movementDirection.getY()
-		);
-	}
 	
 	/**
 	 * Return the vector this object uses internally to move in a specific direction.
 	 * {@link Movable.getDirection()} can at times return a vector which is equal to this vector, this vector is not used by the physics calculator.
 	 * @return A {@link Coordinate2D} vector which is used internally to move this object.
 	 */
-	public Coordinate2D getMovementDirection() {
-		return this.movementDirection;
+	public Coordinate2D getVelocity() {
+		return this.velocity;
 	}
 	
 	/**
 	 * Set the vector this object uses internally to move in a specific direction
-	 * @param movementDirection is the new vector 
+	 * @param velocity is the new vector 
 	 */
-	public void setMovementDirection(Coordinate2D movementDirection) {
-		this.movementDirection = movementDirection;
-		this.movementAngle = AngleCalculatorService.getInstance().calculateAngle(movementDirection);
+	public void setVelocity(Coordinate2D velocity) {
+		this.velocity = velocity;
+		this.movementAngle = AngleCalculatorService.getInstance().calculateAngle(velocity);
 	}
 
 	/**
@@ -130,6 +109,6 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	 * Update the movement of this object, so the internal Yaeger engine knows this object has changed its properties and has to update
 	 */
 	public void updateMovement() {
-		this.setMotion(this.getVelocity(), this.movementAngle);
+		this.setMotion(this.getVelocity().magnitude(), this.movementAngle);
 	}
 }

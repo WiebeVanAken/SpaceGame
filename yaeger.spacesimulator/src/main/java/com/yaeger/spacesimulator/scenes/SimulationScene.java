@@ -36,7 +36,7 @@ public class SimulationScene extends DynamicScene implements UpdateExposer, Mous
 	}
 	
 	private void placePlanet(ObjectPlacementData data) {
-		Planet planet = new Planet(data.getStartPosition(), data.getDirection(), data.getVelocity() / 10, 10, 1, data.getColor() );
+		Planet planet = new Planet(data.getStartPosition(), new Coordinate2D(data.getDirection().normalize()), 100, 10, data.getColor() );
 		
 		this.objects.add(planet);
 		this.addEntity(planet);
