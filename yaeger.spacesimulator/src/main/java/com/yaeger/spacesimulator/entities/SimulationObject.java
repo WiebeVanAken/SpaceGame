@@ -1,8 +1,9 @@
 package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.Collided;
+import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
-import com.yaeger.spacesimulator.data.ObjectPlacementData;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
 
 /**
@@ -12,9 +13,10 @@ import com.yaeger.spacesimulator.services.AngleCalculatorService;
  An {@link SimulationObject} is the base class for all objects which can be simulated.
  It extends all the functionality of a {@link DynamicCircleEntity} so this object can be drawn on the screen.
  */
-public abstract class SimulationObject extends DynamicCircleEntity {
+public abstract class SimulationObject extends DynamicCircleEntity implements Collider, Collided {
 
 	private double movementAngle;
+	private boolean shouldBeDeleted;
 	
 	protected double volume, density;
 	protected Coordinate2D velocity;
@@ -31,6 +33,27 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 		this.volume = volume;
 		this.density = density;
 		this.setVelocity(velocity);
+	}
+	
+	
+	@Override
+	public void onCollision(Collider collidingObject) {
+		SimulationObject other = (SimulationObject)collidingObject;
+		double score = this.getVelocity().magnitude() + this.getMass();
+		double otherScore = other.getVelocity().magnitude() + other.getMass();
+		
+		if(score > otherScore) {
+			this.setVolume(this.getVolume() + other.getVolume());
+			
+			other.setShouldBeDeleted(true);
+		}
+	}
+
+	/**
+	 * Update the movement of this object, so the internal Yaeger engine knows this object has changed its properties and has to update
+	 */
+	public void updateMovement() {
+		this.setMotion(this.getVelocity().magnitude(), this.movementAngle);
 	}
 	
 	/**
@@ -65,6 +88,21 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 		this.density = density;
 	}
 	
+	/**
+	 * @return If this object should be deleted
+	 */
+	public boolean getShouldBeDeleted() {
+		return shouldBeDeleted;
+	}
+
+	/**
+	 * @param shouldBeDeleted the shouldBeDeleted to set
+	 */
+	public void setShouldBeDeleted(boolean shouldBeDeleted) {
+		this.shouldBeDeleted = shouldBeDeleted;
+	}
+
+
 	/**
 	 * Return the vector this object uses internally to move in a specific direction.
 	 * {@link Movable.getDirection()} can at times return a vector which is equal to this vector, this vector is not used by the physics calculator.
@@ -106,12 +144,5 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	 */
 	public Coordinate2D getPosition() {
 		return getLocationInScene();
-	}
-	
-	/**
-	 * Update the movement of this object, so the internal Yaeger engine knows this object has changed its properties and has to update
-	 */
-	public void updateMovement() {
-		this.setMotion(this.getVelocity().magnitude(), this.movementAngle);
 	}
 }

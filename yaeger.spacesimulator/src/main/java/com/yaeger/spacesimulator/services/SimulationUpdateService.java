@@ -26,6 +26,7 @@ public class SimulationUpdateService {
 	public void updateSimulation(ArrayList<SimulationObject> simulationObjects) {
 		double distanceSquared, distance;
 		Point2D acceleration, force, forceDir;
+		ArrayList<SimulationObject> objectsToBeRemoved = new ArrayList<SimulationObject>();
 		
 		for(SimulationObject body : simulationObjects) {
 			for(SimulationObject otherBody : simulationObjects) {
@@ -45,7 +46,19 @@ public class SimulationUpdateService {
 		
 		simulationObjects.forEach(obj -> {
 			obj.updateMovement();
+			
+			if(obj.getShouldBeDeleted())
+				objectsToBeRemoved.add(obj);
 		});
+		
+		if(objectsToBeRemoved.size() > 0)
+		{
+			objectsToBeRemoved.forEach(obj -> {
+				simulationObjects.remove(obj);
+				obj.remove();
+			});
+			objectsToBeRemoved.clear();
+		}
 	}
 	
 	/**
