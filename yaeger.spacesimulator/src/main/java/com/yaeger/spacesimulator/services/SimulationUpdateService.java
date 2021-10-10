@@ -15,7 +15,7 @@ import javafx.geometry.Point2D;
  */
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
-	private final double GRAV_CONST = 0.1D;
+	private final double GRAV_CONST = Double.parseDouble(ConfigService.getValue("gravity-constant"));
 	private ArrayList<SimulationObject> objectsToBeRemoved;
 	
 	private SimulationUpdateService() { 
