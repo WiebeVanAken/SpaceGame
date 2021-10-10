@@ -5,16 +5,20 @@ import java.util.ArrayList;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
+import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
+import com.yaeger.spacesimulator.data.ObjectPlacementData;
 import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
-
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
-public class SimulationScene extends DynamicScene implements UpdateExposer {
+public class SimulationScene extends DynamicScene implements UpdateExposer, MouseButtonReleasedListener, MouseMovedWhileDraggingListener {
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 	
 	private ArrayList<SimulationObject> objects = new ArrayList<SimulationObject>();
+	private ObjectPlacementData data = new ObjectPlacementData();
 	
 	@Override
 	public void setupScene() {
@@ -22,15 +26,37 @@ public class SimulationScene extends DynamicScene implements UpdateExposer {
 	}
 
 	@Override
-	public void setupEntities() { 
-		objects.add(new Planet(new Coordinate2D(10, 10), new Coordinate2D(1, 0), 1, 100, 10, new Color(0.70D, 0.70D, 0.70D, 1.0D)));
-		
+	public void setupEntities() {
 		objects.forEach(obj -> { this.addEntity(obj); });
 	}
 	
 	@Override
 	public void explicitUpdate(long timestamp) {
-		// TODO Auto-generated method stub
 		simulationUpdater.updateSimulation(objects);
+	}
+	
+	private void placePlanet(ObjectPlacementData data) {
+		Planet planet = new Planet(data.getStartPosition(), data.getDirection(), data.getVelocity() / 10, 10, 1, data.getColor() );
+		
+		this.objects.add(planet);
+		this.addEntity(planet);
+	}
+	
+	@Override
+	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
+		if(button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
+			placePlanet(data);
+			data.reset();
+		}
+	}
+	
+	@Override
+	public void onMouseMovedWhileDragging(Coordinate2D mousePos) {
+		if(data.getPlacing()) {
+			data.setStopPosition(mousePos);
+		} else {
+			data.setStartPosition(mousePos);
+			data.setPlacing(true);
+		}
 	}
 }
