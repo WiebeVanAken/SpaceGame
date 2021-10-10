@@ -122,6 +122,10 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 		return this.movementAngle;
 	}
 	
+	public Coordinate2D getPosition() {
+		return getLocationInScene();
+	}
+	
 	/**
 	 * Update the movement of this object, so the internal Yaeger engine knows this object has changed its properties and has to update
 	 */
