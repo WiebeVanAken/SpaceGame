@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.paint.Color;
 
 public class ObjectPlacementData {
-	private double density, volume;
+	private double density = 25, volume = 500;
 	private Coordinate2D startPosition, stopPosition;
 	private boolean placing;
 	private Color color;
@@ -22,7 +22,7 @@ public class ObjectPlacementData {
 		placing = false;
 	}
 	
-	public double getVelocity() {
+	public double getSpeed() {
 		return getDirection().magnitude();
 	}
 

@@ -17,7 +17,7 @@ public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 	
 	private SimulationUpdateService() { }
-	private final double GRAV_CONST = 0.1D;
+	private final double GRAV_CONST = 0.01D;
 	
 	/**
 	 * Calculate & update all the positions of the simulationobjects in the scene
@@ -40,7 +40,6 @@ public class SimulationUpdateService {
 				acceleration = new Point2D(force.getX() / body.getMass(), force.getY() / body.getMass());
 				
 				body.setVelocity(body.getVelocity().add(acceleration));
-				System.out.println(body.getVelocity());
 			}
 		}
 		

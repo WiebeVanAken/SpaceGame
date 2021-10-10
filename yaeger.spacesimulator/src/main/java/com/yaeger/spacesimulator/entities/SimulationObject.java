@@ -1,9 +1,8 @@
 package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
-import com.github.hanyaeger.api.scenes.SceneBorder;
+import com.yaeger.spacesimulator.data.ObjectPlacementData;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
 
 /**
@@ -23,7 +22,7 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	/**
 	 * Construct a new {@link SimulationObject}
 	 * @param initialLocation is the location this object appears at on the screen
-	 * @param velocity is the direction this object moves when the simulation is running
+	 * @param velocity is the direction + speed this object moves at when the simulation is running
 	 * @param volume is the initial weight of this object
 	 * @param density is the initial density of this object
 	 */
@@ -33,7 +32,7 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 		this.density = density;
 		this.setVelocity(velocity);
 	}
-
+	
 	/**
 	 * Return the volume of this simulatable object.
 	 * @return The volume of this simulatable object.
@@ -93,7 +92,7 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 	}
 	
 	/**
-	 * Return the angle this object moves at around the screen.
+	 * Return the angle of this object moves at around the screen.
 	 * This angle is decided by the {@link SimulationObject.getMovementDirection} vector.
 	 * @return The angle this object moves at around the screen.
 	 */
@@ -101,6 +100,10 @@ public abstract class SimulationObject extends DynamicCircleEntity {
 		return this.movementAngle;
 	}
 	
+	/**
+	 * Return the position of this object on the screen.
+	 * @return The position of this object on the screen (in pixels)
+	 */
 	public Coordinate2D getPosition() {
 		return getLocationInScene();
 	}
