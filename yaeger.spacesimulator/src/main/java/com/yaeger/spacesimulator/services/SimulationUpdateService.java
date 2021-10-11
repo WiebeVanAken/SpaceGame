@@ -15,20 +15,36 @@ import javafx.geometry.Point2D;
  */
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
-	
-	private SimulationUpdateService() { }
 	private final double GRAV_CONST = Double.parseDouble(ConfigService.getValue("gravity-constant"));
+	private ArrayList<SimulationObject> objectsToBeRemoved;
+	
+	private SimulationUpdateService() { 
+		this.objectsToBeRemoved = new ArrayList<>();
+	}
 	
 	/**
-	 * Calculate & update all the positions of the simulationobjects in the scene
+	 * Calculate & update all the positions of the simulationobjects
 	 * @param simulationObjects is the list of all simulationobjects
 	 */
 	public void updateSimulation(ArrayList<SimulationObject> simulationObjects) {
+		processPhysicsCalculations(simulationObjects);
+		updateObjects(simulationObjects);
+		
+		if(objectsToBeRemoved.size() > 0)
+			removeObjects(simulationObjects);
+	}
+	
+	/**
+	 * Process the physics calculations for all simulation objects
+	 * @param objects
+	 */
+	private void processPhysicsCalculations(ArrayList<SimulationObject> objects) {
 		double distanceSquared, distance;
 		Point2D acceleration, force, forceDir;
 		
-		for(SimulationObject body : simulationObjects) {
-			for(SimulationObject otherBody : simulationObjects) {
+		// Calculate gravity based object movement
+		for(SimulationObject body : objects) {
+			for(SimulationObject otherBody : objects) {
 				if(body == otherBody)
 					continue;
 				
@@ -42,10 +58,32 @@ public class SimulationUpdateService {
 				body.setVelocity(body.getVelocity().add(acceleration));
 			}
 		}
-		
-		simulationObjects.forEach(obj -> {
+	}
+	
+	/**
+	 * Update all the objects in the scene
+	 * @param objects
+	 */
+	private void updateObjects(ArrayList<SimulationObject> objects) {
+		objects.forEach(obj -> {
 			obj.updateMovement();
+			
+			if(obj.getShouldBeDeleted())
+				objectsToBeRemoved.add(obj);
 		});
+	}
+	
+	/**
+	 * Remove all objects which should be removed from the simulation
+	 * @param objects
+	 * @param objectsToRemove
+	 */
+	private void removeObjects(ArrayList<SimulationObject> objects) {
+		this.objectsToBeRemoved.forEach(obj -> {
+			objects.remove(obj);
+			obj.remove();
+		});
+		this.objectsToBeRemoved.clear();
 	}
 	
 	/**

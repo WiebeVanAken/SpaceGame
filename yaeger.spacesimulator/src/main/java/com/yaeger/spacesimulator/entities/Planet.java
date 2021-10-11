@@ -16,8 +16,25 @@ public class Planet extends SimulationObject {
 	public Planet(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density, Color fill) {
 		super(initialLocation, velocity, volume, density);
 		
-		this.setRadius(this.volume / this.density);
+		this.updateRadius();
 		this.setFill(fill);
 	}
+	
+	@Override
+	public void setVolume(double volume) {
+		super.setVolume(volume);
+		this.updateRadius();
+	}
+
+	@Override
+	public void setDensity(double density) {
+		super.setDensity(density);
+		this.updateRadius();
+	}
+	
+	private void updateRadius() {
+		this.setRadius(this.volume / this.density);
+	}
+	
 	
 }
