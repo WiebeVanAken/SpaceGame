@@ -23,7 +23,7 @@ public class SimulationScene extends DynamicScene
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 
 	private ArrayList<SimulationObject> objects = new ArrayList<SimulationObject>();
-	private ObjectPlacementDTO data = new ObjectPlacementDTO();
+	private ObjectPlacementDTO objectPlacementDto = new ObjectPlacementDTO();
 
 	@Override
 	public void setupScene() {
@@ -34,6 +34,8 @@ public class SimulationScene extends DynamicScene
 	public void setupEntities() {
 		ControlPanel controlPanel = new ControlPanel(new Coordinate2D(20, getHeight() - 20), new Size(220, 350));
 		controlPanel.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
+		controlPanel.observeDensityValueControl(objectPlacementDto);
+		controlPanel.observeVolumeValueControl(objectPlacementDto);
 		addEntity(controlPanel);
 	}
 
@@ -53,19 +55,19 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
-		if (button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
-			placePlanet(data);
-			data.reset();
+		if (button.name() == MouseButton.PRIMARY.toString() && objectPlacementDto.getPlacing()) {
+			placePlanet(objectPlacementDto);
+			objectPlacementDto.reset();
 		}
 	}
 
 	@Override
 	public void onMouseMovedWhileDragging(Coordinate2D mousePos) {
-		if (data.getPlacing()) {
-			data.setStopPosition(mousePos);
+		if (objectPlacementDto.getPlacing()) {
+			objectPlacementDto.setStopPosition(mousePos);
 		} else {
-			data.setStartPosition(mousePos);
-			data.setPlacing(true);
+			objectPlacementDto.setStartPosition(mousePos);
+			objectPlacementDto.setPlacing(true);
 		}
 	}
 }

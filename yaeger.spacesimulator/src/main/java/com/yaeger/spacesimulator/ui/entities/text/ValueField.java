@@ -7,9 +7,12 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
 import com.yaeger.spacesimulator.ui.entities.EntityWrapper;
+import com.yaeger.spacesimulator.ui.entities.IFormattableValue;
+import com.yaeger.spacesimulator.ui.entities.IObserver;
+import com.yaeger.spacesimulator.ui.entities.ISubject;
 import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
 
-public class ValueField<T> extends CompositeEntity implements IUpdatableValue<T> {
+public class ValueField<T> extends CompositeEntity implements IUpdatableValue<T>, IFormattableValue, IObserver<T> {
 
 	private Value<T> value;
 	private double width;
@@ -60,4 +63,8 @@ public class ValueField<T> extends CompositeEntity implements IUpdatableValue<T>
 
 	}
 
+	@Override
+	public void update(ISubject<T> subject, T data) {
+		value.setValue(data);
+	}
 }
