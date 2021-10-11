@@ -31,8 +31,6 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	public SimulationObject(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density) {
 		super(initialLocation);
 		
-		System.out.println(initialLocation);
-		
 		this.volume = volume;
 		this.density = density;
 		this.setVelocity(velocity);
