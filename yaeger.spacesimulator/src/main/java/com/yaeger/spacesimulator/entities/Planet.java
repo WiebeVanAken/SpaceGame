@@ -1,7 +1,7 @@
 package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.yaeger.spacesimulator.data.ObjectPlacementData;
+import com.yaeger.spacesimulator.dto.ObjectPlacementDTO;
 
 import javafx.scene.paint.Color;
 

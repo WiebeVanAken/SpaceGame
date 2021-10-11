@@ -9,7 +9,7 @@ import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
-import com.yaeger.spacesimulator.data.ObjectPlacementData;
+import com.yaeger.spacesimulator.dto.ObjectPlacementDTO;
 import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
@@ -23,7 +23,7 @@ public class SimulationScene extends DynamicScene
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 
 	private ArrayList<SimulationObject> objects = new ArrayList<SimulationObject>();
-	private ObjectPlacementData data = new ObjectPlacementData();
+	private ObjectPlacementDTO data = new ObjectPlacementDTO();
 
 	@Override
 	public void setupScene() {
@@ -32,9 +32,6 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void setupEntities() {
-		objects.forEach(obj -> {
-			this.addEntity(obj);
-		});
 		ControlPanel controlPanel = new ControlPanel(new Coordinate2D(20, getHeight() - 20), new Size(220, 350));
 		controlPanel.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
 		addEntity(controlPanel);
@@ -45,14 +42,11 @@ public class SimulationScene extends DynamicScene
 		simulationUpdater.updateSimulation(objects);
 	}
 
-	private void placePlanet(ObjectPlacementData data) {
-		Planet planet = new Planet(
-			data.getStartPosition(), 
-			new Coordinate2D(data.getDirection().getX() / 10, data.getDirection().getY() / 10), 
-			data.getVolume(), data.getDensity(), 
-			data.getColor() 
-		);
-		
+	private void placePlanet(ObjectPlacementDTO data) {
+		Planet planet = new Planet(data.getStartPosition(),
+				new Coordinate2D(data.getDirection().getX() / 10, data.getDirection().getY() / 10), data.getVolume(),
+				data.getDensity(), data.getColor());
+
 		this.objects.add(planet);
 		this.addEntity(planet);
 	}

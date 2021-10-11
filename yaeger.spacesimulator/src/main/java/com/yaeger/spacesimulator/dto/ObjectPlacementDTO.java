@@ -1,17 +1,17 @@
-package com.yaeger.spacesimulator.data;
+package com.yaeger.spacesimulator.dto;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.yaeger.spacesimulator.services.ConfigService;
 
 import javafx.scene.paint.Color;
 
-public class ObjectPlacementData {
+public class ObjectPlacementDTO {
 	private double density = 25, volume = 500;
 	private Coordinate2D startPosition, stopPosition;
 	private boolean placing;
 	private Color color;
 	
-	public ObjectPlacementData() {
+	public ObjectPlacementDTO() {
 		this.startPosition = new Coordinate2D();
 		this.stopPosition = new Coordinate2D();
 		
