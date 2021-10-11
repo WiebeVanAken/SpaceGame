@@ -11,13 +11,30 @@ public class ObjectPlacementData {
 	private boolean placing;
 	private Color color;
 	
+	/**
+	 * @param density
+	 * @param volume
+	 * @param startPosition
+	 * @param stopPosition
+	 * @param color
+	 */
+	public ObjectPlacementData(double density, double volume, Coordinate2D startPosition, Coordinate2D stopPosition,
+			Color color) {
+		this.density = density;
+		this.volume = volume;
+		this.startPosition = startPosition;
+		this.stopPosition = stopPosition;
+		this.color = color;
+	}
+
 	public ObjectPlacementData() {
-		this.startPosition = new Coordinate2D();
-		this.stopPosition = new Coordinate2D();
-		
-		this.volume = Integer.parseInt(ConfigService.getValue("base-planet-volume"));
-		this.density = Integer.parseInt(ConfigService.getValue("base-planet-density"));
-		this.color = Color.web(ConfigService.getValue("base-planet-color"));
+		this(
+			Double.parseDouble(ConfigService.getValue("base-planet-volume")),
+			Double.parseDouble(ConfigService.getValue("base-planet-density")),
+			new Coordinate2D(),
+			new Coordinate2D(),
+			Color.web(ConfigService.getValue("base-planet-color"))
+		);
 	}
 	
 	public void reset() {
