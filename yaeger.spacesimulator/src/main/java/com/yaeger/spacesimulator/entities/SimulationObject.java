@@ -1,9 +1,13 @@
 package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
+import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
+import com.github.hanyaeger.api.scenes.SceneBorder;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
 
 /**
@@ -13,7 +17,7 @@ import com.yaeger.spacesimulator.services.AngleCalculatorService;
  An {@link SimulationObject} is the base class for all objects which can be simulated.
  It extends all the functionality of a {@link DynamicCircleEntity} so this object can be drawn on the screen.
  */
-public abstract class SimulationObject extends DynamicCircleEntity implements Collider, Collided {
+public abstract class SimulationObject extends DynamicCircleEntity implements Collider, Collided, TimerContainer, SceneBorderCrossingWatcher {
 
 	private double movementAngle;
 	private boolean shouldBeDeleted;
@@ -36,6 +40,24 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	}
 	
 	
+	
+	@Override
+	public void notifyBoundaryCrossing(SceneBorder border) {
+		// TODO Auto-generated method stub
+		Coordinate2D pos = this.getPosition();
+		if(pos.getX() < 0 || pos.getX() > 1920 || pos.getY() < 0 || pos.getY() > 1920) {
+			System.out.println("Object left screen");
+		} else {
+			System.out.println("Object entered screen");
+		}
+	}
+
+	@Override
+	public void setupTimers() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void onCollision(Collider collidingObject) {
 		SimulationObject other = (SimulationObject)collidingObject;
