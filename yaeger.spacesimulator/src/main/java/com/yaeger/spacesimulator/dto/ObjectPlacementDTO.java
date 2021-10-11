@@ -1,48 +1,32 @@
-package com.yaeger.spacesimulator.data;
+package com.yaeger.spacesimulator.dto;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.yaeger.spacesimulator.services.ConfigService;
+import com.yaeger.spacesimulator.ui.entities.IObserver;
+import com.yaeger.spacesimulator.ui.entities.ISubject;
+import com.yaeger.spacesimulator.ui.entities.controls.DensityValueControl;
+import com.yaeger.spacesimulator.ui.entities.controls.VolumeValueControl;
 
 import javafx.scene.paint.Color;
 
-public class ObjectPlacementData {
-	private double density = 25, volume = 500;
+public class ObjectPlacementDTO implements IObserver<Double> {
+	private double density, volume;
 	private Coordinate2D startPosition, stopPosition;
 	private boolean placing;
 	private Color color;
-	
-	/**
-	 * @param density
-	 * @param volume
-	 * @param startPosition
-	 * @param stopPosition
-	 * @param color
-	 */
-	public ObjectPlacementData(double density, double volume, Coordinate2D startPosition, Coordinate2D stopPosition,
-			Color color) {
-		this.density = density;
-		this.volume = volume;
-		this.startPosition = startPosition;
-		this.stopPosition = stopPosition;
-		this.color = color;
+
+	public ObjectPlacementDTO() {
+		//this.volume = Integer.parseInt(ConfigService.getValue("base-planet-volume")); // uncommenting this wil fuck up
+		//this.density = Integer.parseInt(ConfigService.getValue("base-planet-density")); // uncommenting this wil fuck up																// placing
+		this.color = Color.web(ConfigService.getValue("base-planet-color"));
 	}
 
-	public ObjectPlacementData() {
-		this(
-			Double.parseDouble(ConfigService.getValue("base-planet-volume")),
-			Double.parseDouble(ConfigService.getValue("base-planet-density")),
-			new Coordinate2D(),
-			new Coordinate2D(),
-			Color.web(ConfigService.getValue("base-planet-color"))
-		);
-	}
-	
 	public void reset() {
 		startPosition = new Coordinate2D();
 		stopPosition = new Coordinate2D();
 		placing = false;
 	}
-	
+
 	public double getSpeed() {
 		return getDirection().magnitude();
 	}
@@ -82,17 +66,33 @@ public class ObjectPlacementData {
 	public Coordinate2D getDirection() {
 		return new Coordinate2D(stopPosition.subtract(startPosition.getX(), startPosition.getY()));
 	}
-	
+
 	public void setPlacing(boolean placing) {
 		this.placing = placing;
 	}
-	
+
 	public boolean getPlacing() {
 		return this.placing;
 	}
-	
+
 	public Color getColor() {
 		return this.color;
+	}
+
+	@Override
+	public void update(ISubject<Double> subject, Double data) {
+		if (subject instanceof VolumeValueControl) {
+			setVolume(data);
+		} else if (subject instanceof DensityValueControl) {
+			setDensity(data);
+		}
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"ObjectPlacementDTO [density=%s, volume=%s, startPosition=%s, stopPosition=%s, color=%s, getSpeed()=%s, getDirection()=%s]",
+				density, volume, startPosition, stopPosition, color, getSpeed(), getDirection());
 	}
 	
 	

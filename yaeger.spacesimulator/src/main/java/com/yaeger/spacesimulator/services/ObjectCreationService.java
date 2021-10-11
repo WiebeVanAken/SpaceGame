@@ -1,7 +1,7 @@
 package com.yaeger.spacesimulator.services;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.yaeger.spacesimulator.data.ObjectPlacementData;
+import com.yaeger.spacesimulator.dto.ObjectPlacementDTO;
 import com.yaeger.spacesimulator.entities.CentrePlanet;
 import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.scenes.SimulationScene;
@@ -17,10 +17,12 @@ public class ObjectCreationService {
 		this.simulationScene = scene;
 	}
 	
-	public void addPlanet(ObjectPlacementData data) {
+	public void addPlanet(ObjectPlacementDTO data) {
+		System.out.println(data);
+		
 		Planet planet = new Planet(
 			new Coordinate2D(data.getStartPosition()),
-			new Coordinate2D(data.getDirection().getX() / 10, data.getDirection().getY() / 10), 
+			new Coordinate2D(data.getDirection().getX() / 100, data.getDirection().getY() / 100), 
 			data.getDensity(),
 			data.getVolume(), 
 			Color.web("0xFFFFFF")
@@ -29,7 +31,7 @@ public class ObjectCreationService {
 		this.simulationScene.addSimulationObject(planet);
 	}
 	
-	public void addCentrePlanet(ObjectPlacementData data) {
+	public void addCentrePlanet(ObjectPlacementDTO data) {
 		CentrePlanet planet = new CentrePlanet(
 			new Coordinate2D(data.getStartPosition()),
 			new Coordinate2D(Point2D.ZERO),

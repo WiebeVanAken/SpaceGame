@@ -1,15 +1,19 @@
 package com.yaeger.spacesimulator.ui.entities.controls;
 
 import java.text.Format;
+import java.util.ArrayList;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
+import com.yaeger.spacesimulator.ui.entities.IObserver;
+import com.yaeger.spacesimulator.ui.entities.ISubject;
 import com.yaeger.spacesimulator.ui.entities.text.TitleValuePair;
 
-public class ValueControl extends CompositeEntity {
+public class ValueControl extends CompositeEntity implements ISubject<Double>, IObserver<Double> {
 
 	private TitleValuePair<Double> titleValuePair;
 	private Slider slider;
+	private ArrayList<IObserver<Double>> observers = new ArrayList<IObserver<Double>>();
 
 	public ValueControl(Coordinate2D initialLocation, double width, String title, double initialValue, double minValue,
 			double maxValue, String valueFormat) throws Exception {
@@ -41,9 +45,33 @@ public class ValueControl extends CompositeEntity {
 
 	@Override
 	protected void setupEntities() {
-		slider.setControlValue(titleValuePair);
+		slider.observe(titleValuePair);
+		slider.observe(this);
 		addEntity(titleValuePair);
 		addEntity(slider);
+	}
+
+	@Override
+	public void observe(IObserver<Double> observer) {
+		observers.add(observer);
+		System.out.println("observe valuecontrol");
+	}
+
+	@Override
+	public void unobserve(IObserver<Double> observer) {
+		observers.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (IObserver<Double> o : observers) {
+			o.update(this, slider.getValue());
+		}
+	}
+
+	@Override
+	public void update(ISubject<Double> subject, Double data) {
+		notifyObservers();
 	}
 
 }

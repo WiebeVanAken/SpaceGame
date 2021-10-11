@@ -11,8 +11,8 @@ import javafx.geometry.Point2D;
  * @author Wiebe van Aken
  * @version 1.0.0
  * 
- *          A {@link SimulationUpdateService} is a service to physics update all
- *          the simulatable objects in the scene.
+ * A {@link SimulationUpdateService} is a service to physics update all
+ * the simulatable objects in the scene.
  */
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
@@ -90,6 +90,7 @@ public class SimulationUpdateService {
 			obj.remove();
 		});
 		
+		System.out.println(String.format("Cleared %d objects", objectsToBeRemoved.size()));
 		this.objectsToBeRemoved.clear();
 	}
 
