@@ -30,6 +30,9 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	 */
 	public SimulationObject(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density) {
 		super(initialLocation);
+		
+		System.out.println(initialLocation);
+		
 		this.volume = volume;
 		this.density = density;
 		this.setVelocity(velocity);
@@ -38,15 +41,15 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	
 	@Override
 	public void onCollision(Collider collidingObject) {
-//		SimulationObject other = (SimulationObject)collidingObject;
-//		double score = this.getVelocity().magnitude() + this.getMass();
-//		double otherScore = other.getVelocity().magnitude() + other.getMass();
-//		
-//		if(score > otherScore) {
-//			this.setVolume(this.getVolume() + other.getVolume());
-//			
-//			other.setShouldBeDeleted(true);
-//		}
+		SimulationObject other = (SimulationObject)collidingObject;
+		double score = this.getVelocity().magnitude() + this.getMass();
+		double otherScore = other.getVelocity().magnitude() + other.getMass();
+		
+		if(score > otherScore) {
+			this.setVolume(this.getVolume() + other.getVolume());
+			
+			other.setShouldBeDeleted(true);
+		}
 	}
 
 	/**

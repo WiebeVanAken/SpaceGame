@@ -23,8 +23,8 @@ public class ObjectCreationService {
 		Planet planet = new Planet(
 			new Coordinate2D(data.getStartPosition()),
 			new Coordinate2D(data.getDirection().getX() / 10, data.getDirection().getY() / 10), 
-			data.getVolume(),
-			data.getDensity(), 
+			data.getDensity(),
+			data.getVolume(), 
 			Color.web("0xFFFFFF")
 		);
 		

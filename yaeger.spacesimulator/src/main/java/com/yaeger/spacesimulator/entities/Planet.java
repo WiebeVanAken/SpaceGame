@@ -16,6 +16,8 @@ public class Planet extends SimulationObject {
 	public Planet(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density, Color fill) {
 		super(initialLocation, velocity, volume, density);
 		
+		System.out.println(initialLocation);
+		
 		this.updateRadius();
 		this.setFill(fill);
 	}

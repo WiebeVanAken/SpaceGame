@@ -8,21 +8,16 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
 import com.yaeger.spacesimulator.data.ObjectPlacementData;
-import com.yaeger.spacesimulator.entities.CentrePlanet;
-import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
-import com.yaeger.spacesimulator.services.ConfigService;
 import com.yaeger.spacesimulator.services.ObjectCreationService;
 import com.yaeger.spacesimulator.services.SimulationPauseService;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
 import com.yaeger.spacesimulator.ui.entities.controls.PauseButton;
 import com.yaeger.spacesimulator.ui.entities.panels.ControlPanel;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
@@ -45,7 +40,6 @@ public class SimulationScene extends DynamicScene
 	public void addSimulationObject(SimulationObject object) {
 		this.simulationObjects.add(object);
 		this.addEntity(object);
-		System.out.println("Added object");
 	}
 	
 	@Override
@@ -80,7 +74,6 @@ public class SimulationScene extends DynamicScene
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
 		if (button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
-			System.out.println(data);
 			if(this.simulationObjects.size() == 0) 
 				ObjectCreationService.getInstance().addCentrePlanet(data);
 			else
