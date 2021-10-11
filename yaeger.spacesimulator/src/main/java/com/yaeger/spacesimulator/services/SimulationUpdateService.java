@@ -11,19 +11,17 @@ import javafx.geometry.Point2D;
  * @author Wiebe van Aken
  * @version 1.0.0
  * 
- * A {@link SimulationUpdateService} is a service to physics update all
- * the simulatable objects in the scene.
+ *          A {@link SimulationUpdateService} is a service to physics update all
+ *          the simulatable objects in the scene.
  */
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
 	private final double GRAV_CONST = Double.parseDouble(ConfigService.getValue("gravity-constant"));
 
 	private ArrayList<SimulationObject> objectsToBeRemoved;
-	private boolean pauseSimulation;
 
 	private SimulationUpdateService() {
 		this.objectsToBeRemoved = new ArrayList<>();
-		this.pauseSimulation = false;
 	}
 
 	/**
@@ -32,10 +30,8 @@ public class SimulationUpdateService {
 	 * @param simulationObjects is the list of all simulationobjects
 	 */
 	public void updateSimulation(ArrayList<SimulationObject> simulationObjects) {
-		if (!this.pauseSimulation) {
-			processPhysicsCalculations(simulationObjects);
-			updateObjects(simulationObjects);
-		}
+		processPhysicsCalculations(simulationObjects);
+		updateObjects(simulationObjects);
 
 		if (objectsToBeRemoved.size() > 0)
 			removeObjects(simulationObjects);

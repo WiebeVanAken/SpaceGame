@@ -10,8 +10,8 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
 import com.yaeger.spacesimulator.data.ObjectPlacementData;
-import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
+import com.yaeger.spacesimulator.services.ObjectCreationService;
 import com.yaeger.spacesimulator.services.SimulationPauseService;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
 import com.yaeger.spacesimulator.ui.entities.controls.PauseButton;
@@ -24,13 +24,26 @@ public class SimulationScene extends DynamicScene
 		implements UpdateExposer, MouseButtonReleasedListener, MouseMovedWhileDraggingListener {
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 
-	private ArrayList<SimulationObject> objects = new ArrayList<SimulationObject>();
-	private ObjectPlacementData data = new ObjectPlacementData();
-
+	private ArrayList<SimulationObject> simulationObjects;
+	private ObjectPlacementData data;
+	
+	public SimulationScene() {
+		this.simulationObjects = new ArrayList<SimulationObject>();
+		this.data = new ObjectPlacementData();
+	}
+	
+	public ArrayList<SimulationObject> getSimulationObjects() {
+		return this.simulationObjects;
+	}
+	
+	public void addSimulationObject(SimulationObject object) {
+		this.simulationObjects.add(object);
+		this.addEntity(object);
+	}
+	
 	@Override
 	public void setupScene() {
 		setBackgroundColor(Color.BLACK);
-		SimulationPauseService.initializeInstance(this);
 	}
 
 	@Override
@@ -41,26 +54,29 @@ public class SimulationScene extends DynamicScene
 		
 		PauseButton pauseButton = new PauseButton(new Coordinate2D(20, 20), new Size(32, 32));
 		addEntity(pauseButton);
+		
+		SimulationPauseService.initializeInstance(this, pauseButton);
+		ObjectCreationService.initializeInstance(this);
+	}
+	
+	@Override
+	public void postActivate() {
+		super.postActivate();
+		SimulationPauseService.getInstance().setPaused(true);
 	}
 
 	@Override
 	public void explicitUpdate(long timestamp) {
-		simulationUpdater.updateSimulation(objects);
+		simulationUpdater.updateSimulation(simulationObjects);
 	}
-
-	private void placePlanet(ObjectPlacementData data) {
-		Planet planet = new Planet(data.getStartPosition(),
-				new Coordinate2D(data.getDirection().getX() / 10, data.getDirection().getY() / 10), data.getVolume(),
-				data.getDensity(), data.getColor());
-
-		this.objects.add(planet);
-		this.addEntity(planet);
-	}
-
+	
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
 		if (button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
-			placePlanet(data);
+			if(this.simulationObjects.size() == 0) 
+				ObjectCreationService.getInstance().addCentrePlanet(data);
+			else
+				ObjectCreationService.getInstance().addPlanet(data);
 			data.reset();
 		}
 	}

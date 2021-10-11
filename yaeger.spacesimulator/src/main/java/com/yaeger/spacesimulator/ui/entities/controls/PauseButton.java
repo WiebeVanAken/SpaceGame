@@ -18,10 +18,13 @@ public class PauseButton extends SpriteEntity implements MouseButtonReleasedList
 		super("PauseButton.png", location, size, 1, 2);
 	}
 	
+	public void updateSprite() {
+		this.setCurrentFrameIndex(SimulationPauseService.getInstance().getPaused() ? 0 : 1);
+	}
+	
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D coordinate2d) {
-		SimulationPauseService instance = SimulationPauseService.getInstance();
-		this.setCurrentFrameIndex(instance.getPaused() ? 0 : 1);
-		instance.togglePause();
+		this.updateSprite();
+		SimulationPauseService.getInstance().togglePause();
 	}
 }
