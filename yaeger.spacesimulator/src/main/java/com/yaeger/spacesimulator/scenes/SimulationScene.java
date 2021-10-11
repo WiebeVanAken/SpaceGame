@@ -1,14 +1,12 @@
 package com.yaeger.spacesimulator.scenes;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
 import com.yaeger.spacesimulator.data.ObjectPlacementData;
@@ -19,7 +17,6 @@ import com.yaeger.spacesimulator.services.SimulationUpdateService;
 import com.yaeger.spacesimulator.ui.entities.controls.PauseButton;
 import com.yaeger.spacesimulator.ui.entities.panels.ControlPanel;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
@@ -38,10 +35,6 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void setupEntities() {
-		objects.forEach(obj -> {
-			this.addEntity(obj);
-		});
-		
 		ControlPanel controlPanel = new ControlPanel(new Coordinate2D(20, getHeight() - 20), new Size(220, 350));
 		controlPanel.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
 		addEntity(controlPanel);

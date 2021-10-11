@@ -93,6 +93,7 @@ public class SimulationUpdateService {
 			objects.remove(obj);
 			obj.remove();
 		});
+		
 		this.objectsToBeRemoved.clear();
 	}
 

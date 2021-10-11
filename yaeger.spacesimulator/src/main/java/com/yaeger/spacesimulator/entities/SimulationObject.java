@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import com.github.hanyaeger.api.scenes.YaegerScene;
+import com.yaeger.spacesimulator.OutOfBoundsTimer;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
 
 /**
@@ -18,7 +18,8 @@ import com.yaeger.spacesimulator.services.AngleCalculatorService;
  It extends all the functionality of a {@link DynamicCircleEntity} so this object can be drawn on the screen.
  */
 public abstract class SimulationObject extends DynamicCircleEntity implements Collider, Collided, TimerContainer, SceneBorderCrossingWatcher {
-
+	private OutOfBoundsTimer outOfBoundsTimer;
+	
 	private double movementAngle;
 	private boolean shouldBeDeleted;
 	
@@ -39,23 +40,21 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 		this.setVelocity(velocity);
 	}
 	
-	
-	
 	@Override
 	public void notifyBoundaryCrossing(SceneBorder border) {
-		// TODO Auto-generated method stub
 		Coordinate2D pos = this.getPosition();
-		if(pos.getX() < 0 || pos.getX() > 1920 || pos.getY() < 0 || pos.getY() > 1920) {
-			System.out.println("Object left screen");
+		if(pos.getX() < 0 || pos.getX() > 1920 || pos.getY() < 0 || pos.getY() > 1080) {
+			this.outOfBoundsTimer.start();
 		} else {
-			System.out.println("Object entered screen");
+			this.outOfBoundsTimer.stop();
 		}
 	}
 
 	@Override
 	public void setupTimers() {
-		// TODO Auto-generated method stub
-		
+		this.outOfBoundsTimer = new OutOfBoundsTimer(this, 1000);
+		this.outOfBoundsTimer.pause();
+		addTimer(outOfBoundsTimer);
 	}
 
 	@Override
