@@ -4,7 +4,7 @@ import java.text.Format;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
-import com.yaeger.spacesimulator.service.ConfigService;
+import com.yaeger.spacesimulator.services.ConfigService;
 import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
 
 import javafx.scene.paint.Color;

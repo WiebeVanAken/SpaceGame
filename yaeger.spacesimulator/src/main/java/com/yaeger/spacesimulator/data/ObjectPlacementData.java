@@ -1,11 +1,12 @@
 package com.yaeger.spacesimulator.data;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.yaeger.spacesimulator.services.ConfigService;
 
 import javafx.scene.paint.Color;
 
 public class ObjectPlacementData {
-	private double density, volume;
+	private double density = 25, volume = 500;
 	private Coordinate2D startPosition, stopPosition;
 	private boolean placing;
 	private Color color;
@@ -13,7 +14,10 @@ public class ObjectPlacementData {
 	public ObjectPlacementData() {
 		this.startPosition = new Coordinate2D();
 		this.stopPosition = new Coordinate2D();
-		this.color = new Color(1, 1, 1, 1);
+		
+		this.volume = Integer.parseInt(ConfigService.getValue("base-planet-volume"));
+		this.density = Integer.parseInt(ConfigService.getValue("base-planet-density"));
+		this.color = Color.web(ConfigService.getValue("base-planet-color"));
 	}
 	
 	public void reset() {
@@ -22,7 +26,7 @@ public class ObjectPlacementData {
 		placing = false;
 	}
 	
-	public double getVelocity() {
+	public double getSpeed() {
 		return getDirection().magnitude();
 	}
 

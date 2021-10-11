@@ -2,7 +2,7 @@ package com.yaeger.spacesimulator.ui.entities.text;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
-import com.yaeger.spacesimulator.service.ConfigService;
+import com.yaeger.spacesimulator.services.ConfigService;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
