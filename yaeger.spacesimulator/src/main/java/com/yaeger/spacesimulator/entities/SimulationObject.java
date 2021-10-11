@@ -38,15 +38,15 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	
 	@Override
 	public void onCollision(Collider collidingObject) {
-		SimulationObject other = (SimulationObject)collidingObject;
-		double score = this.getVelocity().magnitude() + this.getMass();
-		double otherScore = other.getVelocity().magnitude() + other.getMass();
-		
-		if(score > otherScore) {
-			this.setVolume(this.getVolume() + other.getVolume());
-			
-			other.setShouldBeDeleted(true);
-		}
+//		SimulationObject other = (SimulationObject)collidingObject;
+//		double score = this.getVelocity().magnitude() + this.getMass();
+//		double otherScore = other.getVelocity().magnitude() + other.getMass();
+//		
+//		if(score > otherScore) {
+//			this.setVolume(this.getVolume() + other.getVolume());
+//			
+//			other.setShouldBeDeleted(true);
+//		}
 	}
 
 	/**

@@ -1,14 +1,17 @@
 package com.yaeger.spacesimulator.services;
 
-import com.github.hanyaeger.api.scenes.DynamicScene;
+import com.yaeger.spacesimulator.scenes.SimulationScene;
+import com.yaeger.spacesimulator.ui.entities.controls.PauseButton;
 
 public class SimulationPauseService {
 	private static SimulationPauseService instance;
 	private boolean paused = false;
-	private DynamicScene scene;
+	private SimulationScene simulationScene;
+	private PauseButton pauseButton;
 	
-	private SimulationPauseService(DynamicScene scene) { 
-		this.scene = scene;
+	private SimulationPauseService(SimulationScene simulationScene, PauseButton pauseButton) { 
+		this.simulationScene = simulationScene;
+		this.pauseButton = pauseButton;
 	}
 	
 	public void togglePause() {
@@ -17,11 +20,14 @@ public class SimulationPauseService {
 	
 	public void setPaused(boolean isPaused) {
 		this.paused = isPaused;
+		pauseButton.updateSprite();
 		
 		if(this.paused) 
-			this.scene.pause();
+			this.simulationScene.pause();
 		 else 
-			this.scene.resume();
+			this.simulationScene.resume();
+		
+		System.out.println("Paused " + isPaused);
 	}
 	
 	public boolean getPaused() {
@@ -33,9 +39,9 @@ public class SimulationPauseService {
 	 * 
 	 * @return an instance of this singleton service class
 	 */
-	public static SimulationPauseService getInstance(DynamicScene scene) {
+	public static SimulationPauseService getInstance(SimulationScene scene, PauseButton button) {
 		if (instance == null) 
-			initializeInstance(scene);
+			initializeInstance(scene, button);
 
 		return instance;
 	}
@@ -56,7 +62,7 @@ public class SimulationPauseService {
 	 * Initialize this service
 	 * @param scene to pause/unpause
 	 */
-	public static void initializeInstance(DynamicScene scene) {
-		instance = new SimulationPauseService(scene);
+	public static void initializeInstance(SimulationScene scene, PauseButton button) {
+		instance = new SimulationPauseService(scene, button);
 	}
 }
