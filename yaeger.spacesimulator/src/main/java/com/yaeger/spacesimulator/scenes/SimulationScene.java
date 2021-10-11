@@ -1,7 +1,6 @@
 package com.yaeger.spacesimulator.scenes;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;

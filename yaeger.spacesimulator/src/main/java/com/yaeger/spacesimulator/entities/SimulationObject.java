@@ -43,7 +43,7 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 		double score = this.getVelocity().magnitude() + this.getMass();
 		double otherScore = other.getVelocity().magnitude() + other.getMass();
 		
-		if(score > otherScore) {
+		if(score > otherScore && !(other instanceof CentrePlanet)) {
 			this.setVolume(this.getVolume() + other.getVolume());
 			
 			other.setShouldBeDeleted(true);

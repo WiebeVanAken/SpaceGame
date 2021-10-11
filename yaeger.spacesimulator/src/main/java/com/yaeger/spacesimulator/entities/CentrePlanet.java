@@ -22,7 +22,6 @@ public class CentrePlanet extends Planet {
 	public CentrePlanet(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density,
 			Color fill) {
 		super(initialLocation, velocity, volume, density, fill);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -32,8 +31,8 @@ public class CentrePlanet extends Planet {
 
 	@Override
 	public void onCollision(Collider collidingObject) {
-//		SimulationObject other = (SimulationObject)collidingObject;
-//		this.setVolume(this.getVolume() + other.getVolume());
-//		other.setShouldBeDeleted(true);
+		SimulationObject other = (SimulationObject)collidingObject;
+		this.setVolume(this.getVolume() + other.getVolume());
+		other.setShouldBeDeleted(true);
 	}
 }

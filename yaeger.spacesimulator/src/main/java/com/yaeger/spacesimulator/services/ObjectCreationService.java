@@ -1,7 +1,5 @@
 package com.yaeger.spacesimulator.services;
 
-import java.util.ArrayList;
-
 import com.github.hanyaeger.api.Coordinate2D;
 import com.yaeger.spacesimulator.data.ObjectPlacementData;
 import com.yaeger.spacesimulator.entities.CentrePlanet;
@@ -35,12 +33,10 @@ public class ObjectCreationService {
 		CentrePlanet planet = new CentrePlanet(
 			new Coordinate2D(data.getStartPosition()),
 			new Coordinate2D(Point2D.ZERO),
+			1000,
 			50,
-			1,
 			data.getColor()
 		);
-		
-		System.out.println(data.getStartPosition());
 		
 		this.simulationScene.addSimulationObject(planet);
 	}

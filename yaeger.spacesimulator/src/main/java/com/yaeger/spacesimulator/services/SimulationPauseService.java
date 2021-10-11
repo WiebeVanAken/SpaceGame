@@ -26,8 +26,6 @@ public class SimulationPauseService {
 			this.simulationScene.pause();
 		 else 
 			this.simulationScene.resume();
-		
-		System.out.println("Paused " + isPaused);
 	}
 	
 	public boolean getPaused() {
