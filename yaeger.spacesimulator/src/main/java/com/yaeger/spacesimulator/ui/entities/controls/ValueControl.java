@@ -72,6 +72,6 @@ public class ValueControl extends CompositeEntity implements ISubject<Double>, I
 	@Override
 	public void update(ISubject<Double> subject, Double data) {
 		notifyObservers();
+		this.titleValuePair.setValue(data); //Blijkbaar als je dit weg haalt, gaat 't kapot. -Wiebe, 12/10/21
 	}
-
 }

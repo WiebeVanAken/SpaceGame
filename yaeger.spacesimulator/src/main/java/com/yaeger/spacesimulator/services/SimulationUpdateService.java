@@ -51,7 +51,7 @@ public class SimulationUpdateService {
 			for (SimulationObject otherBody : objects) {
 				if (body == otherBody)
 					continue;
-
+				
 				distance = otherBody.distanceTo(body);
 				distanceSquared = distance * distance;
 

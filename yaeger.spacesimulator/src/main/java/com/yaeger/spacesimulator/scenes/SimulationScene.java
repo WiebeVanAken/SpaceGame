@@ -80,7 +80,7 @@ public class SimulationScene extends DynamicScene
 				ObjectCreationService.getInstance().addCentrePlanet(this.objectPlacementDto);
 			else
 				ObjectCreationService.getInstance().addPlanet(this.objectPlacementDto);
-			this.objectPlacementDto.reset();
+			this.objectPlacementDto.setPlacing(false);
 		}
 	}
 

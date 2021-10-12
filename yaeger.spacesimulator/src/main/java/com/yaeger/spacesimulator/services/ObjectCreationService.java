@@ -18,13 +18,12 @@ public class ObjectCreationService {
 	}
 	
 	public void addPlanet(ObjectPlacementDTO data) {
-		System.out.println(data);
-		
+		System.out.println(String.format("Deze waarde moet niet 0.0 zijn, zonder de slider te bewegen.\n%f", data.getDensity()));
 		Planet planet = new Planet(
 			new Coordinate2D(data.getStartPosition()),
-			new Coordinate2D(data.getDirection().getX() / 100, data.getDirection().getY() / 100), 
-			data.getDensity(),
-			data.getVolume(), 
+			new Coordinate2D(data.getDirection().getX(), data.getDirection().getY()), 
+			data.getVolume(),
+			data.getDensity(), 
 			Color.web("0xFFFFFF")
 		);
 		
