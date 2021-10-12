@@ -30,8 +30,10 @@ public class SimulationUpdateService {
 	 * @param simulationObjects is the list of all simulationobjects
 	 */
 	public void updateSimulation(ArrayList<SimulationObject> simulationObjects) {
-		processPhysicsCalculations(simulationObjects);
-		updateObjects(simulationObjects);
+		if(!SimulationPauseService.getInstance().getPaused()) {
+			processPhysicsCalculations(simulationObjects);
+			updateObjects(simulationObjects);
+		}
 
 		if (objectsToBeRemoved.size() > 0)
 			removeObjects(simulationObjects);

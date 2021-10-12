@@ -2,6 +2,7 @@ package com.yaeger.spacesimulator;
 
 import com.github.hanyaeger.api.Timer;
 import com.yaeger.spacesimulator.entities.SimulationObject;
+import com.yaeger.spacesimulator.services.SimulationPauseService;
 
 public class OutOfBoundsTimer extends Timer {
 	private SimulationObject object;
@@ -31,9 +32,11 @@ public class OutOfBoundsTimer extends Timer {
 	
 	@Override
 	public void onAnimationUpdate(long timestamp) {
-		this.counter++;
-		
-		if(counter >= 5)
-			this.object.setShouldBeDeleted(true);
+		if(!SimulationPauseService.getInstance().getPaused()) {
+			this.counter++;
+			
+			if(counter >= 5)
+				this.object.setShouldBeDeleted(true);
+		}
 	}
 }
