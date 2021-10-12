@@ -21,7 +21,7 @@ public class AngleCalculatorService {
 	 * @param dir is the input vector to use for calculating.
 	 * @return the angle (in degrees) of the input vector.
 	 */
-	public double calculateAngle(Coordinate2D dir) {
+	public double calculateAngle(Point2D dir) {
 		Point2D normDir = dir.normalize();
 		return (normDir.getX() >= 0 
 			? new Point2D(0, 1).angle(normDir)
