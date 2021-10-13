@@ -33,9 +33,9 @@ public class ObjectCreationService {
 		CentrePlanet planet = new CentrePlanet(
 			new Coordinate2D(data.getStartPosition()),
 			new Coordinate2D(Point2D.ZERO),
-			1000,
+			10000,
 			50,
-			data.getColor()
+			Color.YELLOW
 		);
 		
 		this.simulationScene.addSimulationObject(planet);
