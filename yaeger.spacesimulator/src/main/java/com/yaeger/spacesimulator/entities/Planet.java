@@ -1,5 +1,6 @@
 package com.yaeger.spacesimulator.entities;
 
+import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.yaeger.spacesimulator.data.ObjectPlacementData;
 
@@ -18,6 +19,7 @@ public class Planet extends SimulationObject {
 		
 		this.updateRadius();
 		this.setFill(fill);
+		this.setAnchorPoint(AnchorPoint.CENTER_CENTER);
 	}
 	
 	@Override
