@@ -80,19 +80,9 @@ public class ObjectPlacementDTO implements IObserver<Double> {
 	@Override
 	public void update(ISubject<Double> subject, Double data) {
 		if (subject instanceof VolumeValueControl) {
-			System.out.println("vol: " + data);
 			setVolume(data);
 		} else if (subject instanceof DensityValueControl) {
-			System.out.println("den: " + data);
 			setDensity(data);
 		}
 	}
-
-	@Override
-	public String toString() {
-		return String.format(
-				"ObjectPlacementDTO [density=%s, volume=%s, startPosition=%s, stopPosition=%s, color=%s, getSpeed()=%s, getDirection()=%s]",
-				density, volume, startPosition, stopPosition, color, getSpeed(), getDirection());
-	}
-
 }

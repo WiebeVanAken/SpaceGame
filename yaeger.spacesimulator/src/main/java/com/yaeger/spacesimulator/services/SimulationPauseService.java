@@ -14,6 +14,20 @@ public class SimulationPauseService {
 		this.pauseButton = pauseButton;
 	}
 	
+	private void pause() {
+		simulationScene.getSimulationObjects().forEach(obj -> {
+			obj.freezeVelocity();
+			obj.updateMovement();
+		});
+	}
+	
+	private void unpause() {
+		simulationScene.getSimulationObjects().forEach(obj -> {
+			obj.unfreezeVelocity();
+			obj.updateMovement();
+		});
+	}
+	
 	public void togglePause() {
 		this.setPaused(!this.paused);
 	}
@@ -23,9 +37,9 @@ public class SimulationPauseService {
 		pauseButton.updateSprite();
 		
 		if(this.paused) 
-			this.simulationScene.pause();
+			this.pause();
 		 else 
-			this.simulationScene.resume();
+			this.unpause();
 	}
 	
 	public boolean getPaused() {

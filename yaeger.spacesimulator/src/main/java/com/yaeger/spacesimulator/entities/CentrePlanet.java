@@ -6,7 +6,7 @@ import com.github.hanyaeger.api.entities.Collider;
 import javafx.scene.paint.Color;
 
 /**
- * 
+ *
  * @author Wiebe van Aken
  *
  */
@@ -31,7 +31,7 @@ public class CentrePlanet extends Planet {
 
 	@Override
 	public void onCollision(Collider collidingObject) {
-		SimulationObject other = (SimulationObject)collidingObject;
+		SimulationObject other = (SimulationObject) collidingObject;
 		this.setVolume(this.getVolume() + other.getVolume());
 		other.setShouldBeDeleted(true);
 	}

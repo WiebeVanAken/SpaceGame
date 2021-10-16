@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
+import com.yaeger.spacesimulator.services.ConfigService;
 import com.yaeger.spacesimulator.services.SimulationPauseService;
 
 import javafx.scene.input.MouseButton;
@@ -16,6 +17,7 @@ public class PauseButton extends SpriteEntity implements MouseButtonReleasedList
 	 */
 	public PauseButton(Coordinate2D location, Size size) {
 		super("PauseButton.png", location, size, 1, 2);
+		this.setViewOrder(Double.parseDouble(ConfigService.getValue("ui-vieworder")));
 	}
 	
 	public void updateSprite() {
