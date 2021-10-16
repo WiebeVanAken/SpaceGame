@@ -13,7 +13,6 @@ import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
 import com.yaeger.spacesimulator.dto.ObjectPlacementDTO;
-import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.ObjectCreationService;
 import com.yaeger.spacesimulator.services.SimulationPauseService;
@@ -34,12 +33,11 @@ public class SimulationScene extends DynamicScene
 
 	private ArrayList<SimulationObject> simulationObjects;
 	private ObjectPlacementDTO objectPlacementDto;
-private PreviewObject previewPlanet;
-	
+	private PreviewObject previewPlanet;
+
 	public SimulationScene() {
 		this.simulationObjects = new ArrayList<SimulationObject>();
 		this.objectPlacementDto = new ObjectPlacementDTO();
-		this.previewPlanet = new PreviewObject(new Coordinate2D(0, 0), 20, Color.web("#F1F1F1"));
 	}
 
 	public ArrayList<SimulationObject> getSimulationObjects() {
@@ -94,7 +92,7 @@ private PreviewObject previewPlanet;
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
 		if (button.name() == MouseButton.PRIMARY.toString() && this.objectPlacementDto.getPlacing()) {
-			if(this.simulationObjects.size() == 0) 
+			if (this.simulationObjects.size() == 0)
 				ObjectCreationService.getInstance().addCentrePlanet(this.objectPlacementDto);
 			else
 				ObjectCreationService.getInstance().addPlanet(this.objectPlacementDto);
@@ -111,6 +109,8 @@ private PreviewObject previewPlanet;
 		} else {
 			objectPlacementDto.setStartPosition(mousePos);
 			objectPlacementDto.setPlacing(true);
+			previewPlanet = new PreviewObject(new Coordinate2D(),
+					objectPlacementDto.getVolume() / objectPlacementDto.getDensity(), objectPlacementDto.getColor());
 			this.addEntity(previewPlanet);
 			previewPlanet.setAnchorLocation(mousePos);
 		}
