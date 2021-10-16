@@ -17,6 +17,7 @@ import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.ObjectCreationService;
 import com.yaeger.spacesimulator.services.SimulationPauseService;
 import com.yaeger.spacesimulator.services.SimulationUpdateService;
+import com.yaeger.spacesimulator.ui.entities.PreviewObject;
 import com.yaeger.spacesimulator.ui.entities.controls.PauseButton;
 import com.yaeger.spacesimulator.ui.entities.controls.ResetButton;
 import com.yaeger.spacesimulator.ui.entities.panels.ControlPanel;
@@ -32,10 +33,12 @@ public class SimulationScene extends DynamicScene
 
 	private ArrayList<SimulationObject> simulationObjects;
 	private ObjectPlacementData data;
+	private PreviewObject previewPlanet;
 
 	public SimulationScene() {
 		this.simulationObjects = new ArrayList<SimulationObject>();
 		this.data = new ObjectPlacementData();
+		this.previewPlanet = new PreviewObject(new Coordinate2D(0, 0), 20, Color.web("#F1F1F1"));
 	}
 
 	public ArrayList<SimulationObject> getSimulationObjects() {
@@ -92,7 +95,9 @@ public class SimulationScene extends DynamicScene
 				ObjectCreationService.getInstance().addCentrePlanet(data);
 			else
 				ObjectCreationService.getInstance().addPlanet(data);
+
 			data.reset();
+			previewPlanet.remove();
 		}
 	}
 
@@ -103,6 +108,8 @@ public class SimulationScene extends DynamicScene
 		} else {
 			data.setStartPosition(mousePos);
 			data.setPlacing(true);
+			this.addEntity(previewPlanet);
+			previewPlanet.setAnchorLocation(mousePos);
 		}
 	}
 

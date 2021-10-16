@@ -9,6 +9,9 @@ import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.yaeger.spacesimulator.OutOfBoundsTimer;
 import com.yaeger.spacesimulator.services.AngleCalculatorService;
+import com.yaeger.spacesimulator.services.SimulationPauseService;
+
+import javafx.geometry.Point2D;
 
 /**
  @author Wiebe van Aken
@@ -26,6 +29,8 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	protected double volume, density;
 	protected Coordinate2D velocity;
 
+	Point2D frozenVelocity;
+
 	/**
 	 * Construct a new {@link SimulationObject}
 	 * @param initialLocation is the location this object appears at on the screen
@@ -38,6 +43,9 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 		
 		this.volume = volume;
 		this.density = density;
+		
+		this.frozenVelocity = new Coordinate2D(0, 0);
+		this.velocity = new Coordinate2D(0, 0);
 		this.setVelocity(velocity);
 	}
 	
@@ -70,7 +78,17 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 			other.setShouldBeDeleted(true);
 		}
 	}
-
+	
+	public void freezeVelocity() {
+		this.frozenVelocity = this.frozenVelocity.add(this.velocity);
+		this.velocity = this.velocity.add(new Point2D(this.frozenVelocity.getX() * -1, this.frozenVelocity.getY() * -1));
+	}
+	
+	public void unfreezeVelocity() {
+		this.velocity = this.velocity.add(this.frozenVelocity);
+		this.frozenVelocity = this.frozenVelocity.subtract(this.velocity);
+	}
+	
 	/**
 	 * Update the movement of this object, so the internal Yaeger engine knows this object has changed its properties and has to update
 	 */
@@ -139,8 +157,13 @@ public abstract class SimulationObject extends DynamicCircleEntity implements Co
 	 * @param velocity is the new vector 
 	 */
 	public void setVelocity(Coordinate2D velocity) {
-		this.velocity = velocity;
-		this.movementAngle = AngleCalculatorService.getInstance().calculateAngle(velocity);
+		if(!SimulationPauseService.getInstance().getPaused()) {
+			this.velocity = velocity;
+			this.movementAngle = AngleCalculatorService.getInstance().calculateAngle(velocity);
+		} else {
+			this.frozenVelocity = velocity;
+			this.movementAngle = AngleCalculatorService.getInstance().calculateAngle(frozenVelocity);
+		}
 	}
 
 	/**
