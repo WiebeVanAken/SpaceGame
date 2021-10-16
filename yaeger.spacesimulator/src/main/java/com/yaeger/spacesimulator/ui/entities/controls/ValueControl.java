@@ -64,7 +64,7 @@ public class ValueControl extends CompositeEntity implements ISubject<Double>, I
 	@Override
 	public void notifyObservers() {
 		for (IObserver<Double> o : observers) {
-			o.update(this, slider.getValue());
+			o.update(this, getValue());
 		}
 	}
 
@@ -72,5 +72,9 @@ public class ValueControl extends CompositeEntity implements ISubject<Double>, I
 	public void update(ISubject<Double> subject, Double data) {
 		notifyObservers();
 		this.titleValuePair.setValue(data);
+	}
+
+	public double getValue() {
+		return slider.getValue();
 	}
 }

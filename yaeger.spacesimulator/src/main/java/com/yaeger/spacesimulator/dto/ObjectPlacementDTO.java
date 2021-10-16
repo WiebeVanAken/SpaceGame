@@ -16,8 +16,6 @@ public class ObjectPlacementDTO implements IObserver<Double> {
 	private Color color;
 
 	public ObjectPlacementDTO() {
-		this.volume = Integer.parseInt(ConfigService.getValue("base-planet-volume"));
-		this.density = Integer.parseInt(ConfigService.getValue("base-planet-density"));
 		this.color = Color.web(ConfigService.getValue("base-planet-color"));
 	}
 
@@ -82,8 +80,10 @@ public class ObjectPlacementDTO implements IObserver<Double> {
 	@Override
 	public void update(ISubject<Double> subject, Double data) {
 		if (subject instanceof VolumeValueControl) {
+			System.out.println("vol: " + data);
 			setVolume(data);
 		} else if (subject instanceof DensityValueControl) {
+			System.out.println("den: " + data);
 			setDensity(data);
 		}
 	}

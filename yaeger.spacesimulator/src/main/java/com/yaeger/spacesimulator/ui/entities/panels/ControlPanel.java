@@ -38,9 +38,11 @@ public class ControlPanel extends Panel {
 
 	public void observeVolumeValueControl(IObserver<Double> observer) {
 		volumeValueControl.observe(observer);
+		observer.update(volumeValueControl, volumeValueControl.getValue());
 	}
 
 	public void observeDensityValueControl(IObserver<Double> observer) {
 		densityValueControl.observe(observer);
+		observer.update(densityValueControl, densityValueControl.getValue());
 	}
 }

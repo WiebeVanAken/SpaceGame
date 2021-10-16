@@ -7,7 +7,6 @@ import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.scenes.SimulationScene;
 
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
 
 public class ObjectCreationService {
 	private static ObjectCreationService instance;
@@ -18,18 +17,16 @@ public class ObjectCreationService {
 	}
 
 	public void addPlanet(ObjectPlacementDTO data) {
-		System.out.println(
-				String.format("Deze waarde moet niet 0.0 zijn, zonder de slider te bewegen.\n%f", data.getDensity()));
 		Planet planet = new Planet(new Coordinate2D(data.getStartPosition()),
 				new Coordinate2D(data.getDirection().getX(), data.getDirection().getY()), data.getVolume(),
-				data.getDensity(), Color.web("0xFFFFFF"));
+				data.getDensity(), data.getColor());
 
 		this.simulationScene.addSimulationObject(planet);
 	}
 
 	public void addCentrePlanet(ObjectPlacementDTO data) {
 		CentrePlanet planet = new CentrePlanet(new Coordinate2D(data.getStartPosition()),
-				new Coordinate2D(Point2D.ZERO), 1000, 50, data.getColor());
+				new Coordinate2D(Point2D.ZERO), data.getVolume(), data.getDensity(), data.getColor());
 
 		this.simulationScene.addSimulationObject(planet);
 	}
