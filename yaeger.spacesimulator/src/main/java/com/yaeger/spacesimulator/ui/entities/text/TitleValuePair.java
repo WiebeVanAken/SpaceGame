@@ -4,9 +4,12 @@ import java.text.Format;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
+import com.yaeger.spacesimulator.ui.entities.IFormattableValue;
+import com.yaeger.spacesimulator.ui.entities.IObserver;
+import com.yaeger.spacesimulator.ui.entities.ISubject;
 import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
 
-public class TitleValuePair<T> extends CompositeEntity implements IUpdatableValue<T> {
+public class TitleValuePair<T> extends CompositeEntity implements IUpdatableValue<T>, IFormattableValue, IObserver<T> {
 
 	private ValueField<T> valueField;
 	private String title;
@@ -60,4 +63,8 @@ public class TitleValuePair<T> extends CompositeEntity implements IUpdatableValu
 		valueField.setFormatter(formatter);
 	}
 
+	@Override
+	public void update(ISubject<T> subject, T data) {
+		valueField.setValue(data);
+	}
 }

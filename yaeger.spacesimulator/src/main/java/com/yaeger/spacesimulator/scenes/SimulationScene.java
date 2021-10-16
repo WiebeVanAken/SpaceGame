@@ -12,7 +12,8 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.api.userinput.MouseButtonReleasedListener;
 import com.github.hanyaeger.api.userinput.MouseMovedWhileDraggingListener;
-import com.yaeger.spacesimulator.data.ObjectPlacementData;
+import com.yaeger.spacesimulator.dto.ObjectPlacementDTO;
+import com.yaeger.spacesimulator.entities.Planet;
 import com.yaeger.spacesimulator.entities.SimulationObject;
 import com.yaeger.spacesimulator.services.ObjectCreationService;
 import com.yaeger.spacesimulator.services.SimulationPauseService;
@@ -32,12 +33,12 @@ public class SimulationScene extends DynamicScene
 	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 
 	private ArrayList<SimulationObject> simulationObjects;
-	private ObjectPlacementData data;
-	private PreviewObject previewPlanet;
-
+	private ObjectPlacementDTO objectPlacementDto;
+private PreviewObject previewPlanet;
+	
 	public SimulationScene() {
 		this.simulationObjects = new ArrayList<SimulationObject>();
-		this.data = new ObjectPlacementData();
+		this.objectPlacementDto = new ObjectPlacementDTO();
 		this.previewPlanet = new PreviewObject(new Coordinate2D(0, 0), 20, Color.web("#F1F1F1"));
 	}
 
@@ -59,6 +60,8 @@ public class SimulationScene extends DynamicScene
 	public void setupEntities() {
 		ControlPanel controlPanel = new ControlPanel(new Coordinate2D(20, getHeight() - 20), new Size(220, 350));
 		controlPanel.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
+		controlPanel.observeDensityValueControl(objectPlacementDto);
+		controlPanel.observeVolumeValueControl(objectPlacementDto);
 		addEntity(controlPanel);
 
 		PauseButton pauseButton = new PauseButton(new Coordinate2D(20, 20), new Size(32, 32));
@@ -90,24 +93,24 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
-		if (button.name() == MouseButton.PRIMARY.toString() && data.getPlacing()) {
-			if (this.simulationObjects.size() == 0)
-				ObjectCreationService.getInstance().addCentrePlanet(data);
+		if (button.name() == MouseButton.PRIMARY.toString() && this.objectPlacementDto.getPlacing()) {
+			if(this.simulationObjects.size() == 0) 
+				ObjectCreationService.getInstance().addCentrePlanet(this.objectPlacementDto);
 			else
-				ObjectCreationService.getInstance().addPlanet(data);
-
-			data.reset();
+				ObjectCreationService.getInstance().addPlanet(this.objectPlacementDto);
+			this.objectPlacementDto.setPlacing(false);
 			previewPlanet.remove();
+			objectPlacementDto.reset();
 		}
 	}
 
 	@Override
 	public void onMouseMovedWhileDragging(Coordinate2D mousePos) {
-		if (data.getPlacing()) {
-			data.setStopPosition(mousePos);
+		if (objectPlacementDto.getPlacing()) {
+			objectPlacementDto.setStopPosition(mousePos);
 		} else {
-			data.setStartPosition(mousePos);
-			data.setPlacing(true);
+			objectPlacementDto.setStartPosition(mousePos);
+			objectPlacementDto.setPlacing(true);
 			this.addEntity(previewPlanet);
 			previewPlanet.setAnchorLocation(mousePos);
 		}

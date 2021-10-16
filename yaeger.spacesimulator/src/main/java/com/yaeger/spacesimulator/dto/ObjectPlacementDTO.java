@@ -16,10 +16,6 @@ public class ObjectPlacementDTO implements IObserver<Double> {
 	private Color color;
 
 	public ObjectPlacementDTO() {
-		this.volume = Integer.parseInt(ConfigService.getValue("base-planet-volume")); // uncommenting this wil fuck up
-																						// placing
-		this.density = Integer.parseInt(ConfigService.getValue("base-planet-density")); // uncommenting this wil fuck up
-																						// placing
 		this.color = Color.web(ConfigService.getValue("base-planet-color"));
 	}
 
@@ -89,5 +85,4 @@ public class ObjectPlacementDTO implements IObserver<Double> {
 			setDensity(data);
 		}
 	}
-
 }
