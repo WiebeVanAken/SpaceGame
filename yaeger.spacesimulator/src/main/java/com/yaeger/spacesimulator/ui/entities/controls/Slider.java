@@ -1,22 +1,24 @@
 package com.yaeger.spacesimulator.ui.entities.controls;
 
+import java.util.ArrayList;
+
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import com.yaeger.spacesimulator.ui.entities.IControl;
-import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
+import com.yaeger.spacesimulator.ui.entities.IObserver;
+import com.yaeger.spacesimulator.ui.entities.ISubject;
 import com.yaeger.spacesimulator.ui.entities.Rectangle;
 
 import javafx.scene.paint.Color;
 
-public class Slider extends CompositeEntity implements IControl {
+public class Slider extends CompositeEntity implements ISubject<Double> {
 
 	private double baseWidth;
 	private double minValue;
 	private double maxValue;
 	private double position;
-	private IUpdatableValue<Double> controlValue;
+	private ArrayList<IObserver<Double>> observers;
 
 	protected Slider(Coordinate2D initialLocation, double baseWidth, double minValue, double maxValue)
 			throws Exception {
@@ -26,6 +28,7 @@ public class Slider extends CompositeEntity implements IControl {
 		this.baseWidth = baseWidth;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
+		observers = new ArrayList<IObserver<Double>>();
 	}
 
 	@Override
@@ -45,7 +48,7 @@ public class Slider extends CompositeEntity implements IControl {
 
 	public void setPosition(double position) {
 		this.position = position;
-		updateValue();
+		notifyObservers();
 	}
 
 	public double getBaseWidth() {
@@ -53,13 +56,19 @@ public class Slider extends CompositeEntity implements IControl {
 	}
 
 	@Override
-	public void updateValue() {
-		controlValue.setValue(getValue());
+	public void observe(IObserver<Double> observer) {
+		observers.add(observer);
 	}
 
 	@Override
-	public void setControlValue(IUpdatableValue<Double> value) {
-		controlValue = value;
+	public void unobserve(IObserver<Double> observer) {
+		observers.remove(observer);
 	}
 
+	@Override
+	public void notifyObservers() {
+		for (IObserver<Double> o : observers) {
+			o.update(this, getValue());
+		}
+	}
 }

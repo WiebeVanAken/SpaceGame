@@ -4,14 +4,17 @@ import java.text.Format;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
-import com.yaeger.spacesimulator.service.ConfigService;
+import com.yaeger.spacesimulator.services.ConfigService;
+import com.yaeger.spacesimulator.ui.entities.IFormattableValue;
+import com.yaeger.spacesimulator.ui.entities.IObserver;
+import com.yaeger.spacesimulator.ui.entities.ISubject;
 import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class Value<T> extends TextEntity implements IUpdatableValue<T> {
+public class Value<T> extends TextEntity implements IUpdatableValue<T>, IFormattableValue, IObserver<T> {
 
 	private String format;
 	private Format formatter;
@@ -59,4 +62,8 @@ public class Value<T> extends TextEntity implements IUpdatableValue<T> {
 		format = null;
 	}
 
+	@Override
+	public void update(ISubject<T> subject, T data) {
+		setValue(data);
+	}
 }
