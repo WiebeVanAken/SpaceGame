@@ -7,12 +7,12 @@ import com.yaeger.spacesimulator.entities.SimulationObject;
 import javafx.geometry.Point2D;
 
 /**
- * 
+ *
  * @author Wiebe van Aken
  * @version 1.0.0
- * 
- * A {@link SimulationUpdateService} is a service to physics update all
- * the simulatable objects in the scene.
+ *
+ *          A {@link SimulationUpdateService} is a service to physics update all
+ *          the simulatable objects in the scene.
  */
 public class SimulationUpdateService {
 	private static SimulationUpdateService instance;
@@ -26,11 +26,11 @@ public class SimulationUpdateService {
 
 	/**
 	 * Calculate & update all the positions of the simulationobjects
-	 * 
+	 *
 	 * @param simulationObjects is the list of all simulationobjects
 	 */
 	public void updateSimulation(ArrayList<SimulationObject> simulationObjects) {
-		if(!SimulationPauseService.getInstance().getPaused()) {
+		if (!SimulationPauseService.getInstance().getPaused()) {
 			processPhysicsCalculations(simulationObjects);
 			updateObjects(simulationObjects);
 		}
@@ -41,7 +41,7 @@ public class SimulationUpdateService {
 
 	/**
 	 * Process the physics calculations for all simulation objects
-	 * 
+	 *
 	 * @param objects
 	 */
 	private void processPhysicsCalculations(ArrayList<SimulationObject> objects) {
@@ -53,7 +53,7 @@ public class SimulationUpdateService {
 			for (SimulationObject otherBody : objects) {
 				if (body == otherBody)
 					continue;
-				
+
 				distance = otherBody.distanceTo(body);
 				distanceSquared = distance * distance;
 
@@ -68,7 +68,7 @@ public class SimulationUpdateService {
 
 	/**
 	 * Update all the objects in the scene
-	 * 
+	 *
 	 * @param objects
 	 */
 	private void updateObjects(ArrayList<SimulationObject> objects) {
@@ -82,7 +82,7 @@ public class SimulationUpdateService {
 
 	/**
 	 * Remove all objects which should be removed from the simulation
-	 * 
+	 *
 	 * @param objects
 	 * @param objectsToRemove
 	 */
@@ -91,14 +91,13 @@ public class SimulationUpdateService {
 			objects.remove(obj);
 			obj.remove();
 		});
-		
-		System.out.println(String.format("Cleared %d objects", objectsToBeRemoved.size()));
+
 		this.objectsToBeRemoved.clear();
 	}
 
 	/**
 	 * Retrieve an instance of this service class
-	 * 
+	 *
 	 * @return an instance of this singleton service class
 	 */
 	public static SimulationUpdateService getInstance() {

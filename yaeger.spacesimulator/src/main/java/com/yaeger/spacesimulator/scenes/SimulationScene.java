@@ -39,7 +39,6 @@ public class SimulationScene extends DynamicScene
 	public SimulationScene() {
 		this.simulationObjects = new ArrayList<SimulationObject>();
 		this.objectPlacementDto = new ObjectPlacementDTO();
-		this.previewPlanet = new PreviewObject(new Coordinate2D(0, 0), 20, Color.web("#F1F1F1"));
 	}
 
 	public ArrayList<SimulationObject> getSimulationObjects() {
@@ -113,6 +112,9 @@ public class SimulationScene extends DynamicScene
 			} else {
 				objectPlacementDto.setStartPosition(mousePos);
 				objectPlacementDto.setPlacing(true);
+				previewPlanet = new PreviewObject(new Coordinate2D(),
+						objectPlacementDto.getVolume() / objectPlacementDto.getDensity(),
+						objectPlacementDto.getColor());
 				this.addEntity(previewPlanet);
 				previewPlanet.setAnchorLocation(mousePos);
 			}
