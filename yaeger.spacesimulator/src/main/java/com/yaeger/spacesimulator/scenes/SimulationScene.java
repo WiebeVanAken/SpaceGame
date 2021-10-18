@@ -29,11 +29,12 @@ import javafx.scene.paint.Color;
 
 public class SimulationScene extends DynamicScene
 		implements UpdateExposer, MouseButtonReleasedListener, MouseMovedWhileDraggingListener, KeyListener {
-	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 
+	private SimulationUpdateService simulationUpdater = SimulationUpdateService.getInstance();
 	private ArrayList<SimulationObject> simulationObjects;
 	private ObjectPlacementDTO objectPlacementDto;
 	private PreviewObject previewPlanet;
+	private ControlPanel controlPanel;
 
 	public SimulationScene() {
 		this.simulationObjects = new ArrayList<SimulationObject>();
@@ -56,7 +57,7 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void setupEntities() {
-		ControlPanel controlPanel = new ControlPanel(new Coordinate2D(20, getHeight() - 20), new Size(220, 350));
+		controlPanel = new ControlPanel(new Coordinate2D(20, getHeight() - 20), new Size(220, 350));
 		controlPanel.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
 		controlPanel.observeDensityValueControl(objectPlacementDto);
 		controlPanel.observeVolumeValueControl(objectPlacementDto);
@@ -91,29 +92,32 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
-		if (button.name() == MouseButton.PRIMARY.toString() && this.objectPlacementDto.getPlacing()) {
-			if (this.simulationObjects.size() == 0)
-				ObjectCreationService.getInstance().addCentrePlanet(this.objectPlacementDto);
-			else
-				ObjectCreationService.getInstance().addPlanet(this.objectPlacementDto);
-			this.objectPlacementDto.setPlacing(false);
-			previewPlanet.remove();
-			objectPlacementDto.reset();
-		}
+		if (!locationIsInControlPanel(mousePos))
+			if (button.name() == MouseButton.PRIMARY.toString() && this.objectPlacementDto.getPlacing()) {
+				if (this.simulationObjects.size() == 0)
+					ObjectCreationService.getInstance().addCentrePlanet(this.objectPlacementDto);
+				else
+					ObjectCreationService.getInstance().addPlanet(this.objectPlacementDto);
+				this.objectPlacementDto.setPlacing(false);
+				previewPlanet.remove();
+				objectPlacementDto.reset();
+			}
 	}
 
 	@Override
 	public void onMouseMovedWhileDragging(Coordinate2D mousePos) {
-		if (objectPlacementDto.getPlacing()) {
-			objectPlacementDto.setStopPosition(mousePos);
-		} else {
-			objectPlacementDto.setStartPosition(mousePos);
-			objectPlacementDto.setPlacing(true);
-			previewPlanet = new PreviewObject(new Coordinate2D(),
-					objectPlacementDto.getVolume() / objectPlacementDto.getDensity(), objectPlacementDto.getColor());
-			this.addEntity(previewPlanet);
-			previewPlanet.setAnchorLocation(mousePos);
-		}
+		if (!locationIsInControlPanel(mousePos))
+			if (objectPlacementDto.getPlacing()) {
+				objectPlacementDto.setStopPosition(mousePos);
+			} else {
+				objectPlacementDto.setStartPosition(mousePos);
+				objectPlacementDto.setPlacing(true);
+				previewPlanet = new PreviewObject(new Coordinate2D(),
+						objectPlacementDto.getVolume() / objectPlacementDto.getDensity(),
+						objectPlacementDto.getColor());
+				this.addEntity(previewPlanet);
+				previewPlanet.setAnchorLocation(mousePos);
+			}
 	}
 
 	@Override
@@ -130,6 +134,15 @@ public class SimulationScene extends DynamicScene
 			o.remove();
 			iterator.remove();
 		}
+	}
+
+	private boolean locationIsInControlPanel(Coordinate2D mousePos) {
+		if (mousePos.getX() > controlPanel.getAnchorLocation().getX()
+				&& mousePos.getX() < controlPanel.getAnchorLocation().getX() + controlPanel.getWidth()
+				&& mousePos.getY() > controlPanel.getAnchorLocation().getY() - controlPanel.getHeight()
+				&& mousePos.getY() < controlPanel.getAnchorLocation().getY())
+			return true;
+		return false;
 	}
 
 }
