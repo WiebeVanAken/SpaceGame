@@ -8,15 +8,9 @@ import com.yaeger.spacesimulator.services.ConfigService;
 public class VolumeValueControl extends ValueControl {
 
 	public VolumeValueControl(Coordinate2D initialLocation, double width) throws Exception {
-		super(
-			initialLocation, 
-			width, 
-			"Volume", 
-			Double.parseDouble(ConfigService.getValue("base-planet-volume")), 
-			Double.parseDouble(ConfigService.getValue("planet-min-volume")), 
-			Double.parseDouble(ConfigService.getValue("planet-max-volume")), 
-			new DecimalFormat("###,###,###.###")
-		);
+		super(initialLocation, width, "Volume", Double.parseDouble(ConfigService.getValue("volume-min")),
+				Double.parseDouble(ConfigService.getValue("volume-min")),
+				Double.parseDouble(ConfigService.getValue("volume-max")), new DecimalFormat("###,###,###.###"));
 		setSubtitle("(x 10^12 km^3)");
 	}
 
