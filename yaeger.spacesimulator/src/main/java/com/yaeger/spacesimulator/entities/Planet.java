@@ -36,7 +36,7 @@ public class Planet extends SimulationObject {
 	}
 
 	private void updateRadius() {
-		this.setRadius((this.volume / this.density) * Planet.radiusScale);
+		this.setRadius(this.volume / this.density * radiusScale);
 	}
 
 }
