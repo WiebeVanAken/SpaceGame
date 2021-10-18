@@ -6,18 +6,19 @@ import com.github.hanyaeger.api.entities.Collider;
 import javafx.scene.paint.Color;
 
 /**
- *
- * @author Wiebe van Aken
- *
+ * A {@code CentrePlanet} is a {@link Planet} with the purpose to stay at the
+ * initial location.
  */
 public class CentrePlanet extends Planet {
 
 	/**
-	 * @param initialLocation
-	 * @param velocity
-	 * @param volume
-	 * @param density
-	 * @param fill
+	 * Create a new instance of {@link CentrePlanet}.
+	 *
+	 * @param initialLocation the initial location as a {@link Coordinate2D}.
+	 * @param velocity        the velocity as a {@link Coordinate2D}.
+	 * @param volume          the volume as a {@code double}.
+	 * @param density         the density as a {@code double}.
+	 * @param fill            the fill color as a {@link Color}.
 	 */
 	public CentrePlanet(Coordinate2D initialLocation, Coordinate2D velocity, double volume, double density,
 			Color fill) {
