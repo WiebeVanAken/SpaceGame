@@ -10,6 +10,8 @@ import javafx.geometry.Point2D;
 
 public class ObjectCreationService {
 	private static ObjectCreationService instance;
+	private static double planetSpeedScale = Double.parseDouble(ConfigService.getValue("planet-speed-scale"));
+	
 	private SimulationScene simulationScene;
 
 	private ObjectCreationService(SimulationScene scene) {
@@ -18,7 +20,7 @@ public class ObjectCreationService {
 
 	public void addPlanet(ObjectPlacementDTO data) {
 		Planet planet = new Planet(new Coordinate2D(data.getStartPosition()),
-				new Coordinate2D(data.getDirection().getX(), data.getDirection().getY()), data.getVolume(),
+				new Coordinate2D(data.getDirection().getX() * planetSpeedScale, data.getDirection().getY() * planetSpeedScale), data.getVolume(),
 				data.getDensity(), data.getColor());
 
 		this.simulationScene.addSimulationObject(planet);

@@ -2,11 +2,13 @@ package com.yaeger.spacesimulator.entities;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.yaeger.spacesimulator.services.ConfigService;
 
 import javafx.scene.paint.Color;
 
 public class Planet extends SimulationObject {
-
+	private static double radiusScale = Double.parseDouble(ConfigService.getValue("planet-radius-scale"));
+	
 	/**
 	 * @param initialLocation
 	 * @param velocity
@@ -34,7 +36,7 @@ public class Planet extends SimulationObject {
 	}
 
 	private void updateRadius() {
-		this.setRadius(this.volume / this.density);
+		this.setRadius((this.volume / this.density) * Planet.radiusScale);
 	}
 
 }

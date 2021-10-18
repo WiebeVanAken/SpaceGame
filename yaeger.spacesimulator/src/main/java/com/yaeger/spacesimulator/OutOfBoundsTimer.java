@@ -35,7 +35,7 @@ public class OutOfBoundsTimer extends Timer {
 		if (!SimulationPauseService.getInstance().getPaused()) {
 			this.counter++;
 
-			if (counter >= 5)
+			if (counter >= 15)
 				this.object.setShouldBeDeleted(true);
 		}
 	}
