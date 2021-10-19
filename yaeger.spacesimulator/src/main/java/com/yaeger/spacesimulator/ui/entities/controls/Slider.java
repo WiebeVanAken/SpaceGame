@@ -12,6 +12,15 @@ import com.yaeger.spacesimulator.ui.entities.Rectangle;
 
 import javafx.scene.paint.Color;
 
+/**
+ * A {@code Slider} is a concrete implementation of {@link CompositeEntity},
+ * which is used to create a slider control.
+ * <p>
+ * A {@code Slider} is a {@link ISubject} of type {@link Double}, which can be
+ * observed by observers of this type.
+ * </p>
+ *
+ */
 public class Slider extends CompositeEntity implements ISubject<Double> {
 
 	private double baseWidth;
@@ -20,8 +29,18 @@ public class Slider extends CompositeEntity implements ISubject<Double> {
 	private double position;
 	private ArrayList<IObserver<Double>> observers;
 
-	protected Slider(Coordinate2D initialLocation, double baseWidth, double minValue, double maxValue)
-			throws Exception {
+	/**
+	 * Create a new instance of this {@link Slider} for the given initial location,
+	 * base width, min value and max value.
+	 *
+	 * @param initialLocation the initial location as a {@link Coordinate2D}.
+	 * @param baseWidth       the base width as a {@code double}.
+	 * @param minValue        the min value as a {@code double}.
+	 * @param maxValue        the max value as a {@code double}.
+	 * @throws Exception the exception that get thrown when te max value is not
+	 *                   greater then the min value.
+	 */
+	public Slider(Coordinate2D initialLocation, double baseWidth, double minValue, double maxValue) throws Exception {
 		super(initialLocation);
 		if (minValue >= maxValue)
 			throw new Exception("Can only instantiate slider when min value is less then max value.");
@@ -42,15 +61,37 @@ public class Slider extends CompositeEntity implements ISubject<Double> {
 		addEntity(sliderHandle);
 	}
 
+	/**
+	 * Used to get the value of this {@link Slider}.
+	 *
+	 * @return the value as a {@code double}.
+	 */
 	public double getValue() {
 		return position / baseWidth * (maxValue - minValue) + minValue;
 	}
 
+	/**
+	 * Used to set the position of this {@link Slider}.
+	 * <p>
+	 * This method is called when the {@link SliderHandle} of this {@link Slider} is
+	 * moved.
+	 * </p>
+	 * <p>
+	 * When this method is called, this {@link Slider} will notify its observers.
+	 * </p>
+	 *
+	 * @param position the position as a {@code double}.
+	 */
 	public void setPosition(double position) {
 		this.position = position;
 		notifyObservers();
 	}
 
+	/**
+	 * Used to get the base width of this {@link Slider}.
+	 *
+	 * @return the base widht as a {@code double}.
+	 */
 	public double getBaseWidth() {
 		return baseWidth;
 	}
