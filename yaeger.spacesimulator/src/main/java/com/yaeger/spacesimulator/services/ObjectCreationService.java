@@ -9,7 +9,8 @@ import com.yaeger.spacesimulator.scenes.SimulationScene;
 import javafx.geometry.Point2D;
 
 /**
- *
+ * A {@code ObjectCreationService} is a singleton service, which is responsible
+ * for adding objects to the {@link SimulationScene}.
  *
  */
 public class ObjectCreationService {
@@ -22,6 +23,12 @@ public class ObjectCreationService {
 		this.simulationScene = scene;
 	}
 
+	/**
+	 * Used to add a {@link Planet} to the {@link SimulationScene} for the given
+	 * {@link ObjectPlacementDto}.
+	 *
+	 * @param data the initial data as a {@link ObjectPlacementDto.}
+	 */
 	public void addPlanet(ObjectPlacementDTO data) {
 		Planet planet = new Planet(new Coordinate2D(data.getStartPosition()),
 				new Coordinate2D(data.getDirection().getX() * planetSpeedScale,
@@ -31,6 +38,12 @@ public class ObjectCreationService {
 		this.simulationScene.addSimulationObject(planet);
 	}
 
+	/**
+	 * Used to add a {@link CentrePlanet} to the {@link SimulationScene} for the
+	 * given {@link ObjectPlacementDto}.
+	 *
+	 * @param data the initial data as a {@link ObjectPlacementDto.}
+	 */
 	public void addCentrePlanet(ObjectPlacementDTO data) {
 		CentrePlanet planet = new CentrePlanet(new Coordinate2D(data.getStartPosition()),
 				new Coordinate2D(Point2D.ZERO), data.getVolume(), data.getDensity(), data.getColor());
