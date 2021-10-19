@@ -17,7 +17,7 @@ public interface IObserver<T> {
 	 * this {@link IObserver}.
 	 * </p>
 	 * <p>
-	 * This method should be called by {@link ISubject.notifyObservers()}
+	 * This method should be called by {@code ISubject.notifyObservers()}
 	 * </p>
 	 *
 	 * @param subject the subject as a {@link ISubject} this observer observes.

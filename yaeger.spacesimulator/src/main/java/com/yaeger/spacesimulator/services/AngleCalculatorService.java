@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 /**
  * An {@link AngleCalculatorService} is a helper service to calculate movement
  * vector angles. The general purpose of this service is to make sure angles are
- * correct, due to the weird behaviour of {@link Point2D.getAngle(double x,
+ * correct, due to the weird behaviour of {@code Point2D.getAngle(double x,
  * double y)}.
  */
 public class AngleCalculatorService {

@@ -68,6 +68,8 @@ public class SimulationPauseService {
 	 * Retrieve an instance of this service class
 	 *
 	 * @return an instance of this singleton service class
+	 * @param scene  a scene as a {@link SimulationScene}
+	 * @param button a button as a {@link PauseButton}.
 	 */
 	public static SimulationPauseService getInstance(SimulationScene scene, PauseButton button) {
 		if (instance == null)
@@ -93,7 +95,8 @@ public class SimulationPauseService {
 	/**
 	 * Initialize this service
 	 *
-	 * @param scene to pause/unpause
+	 * @param scene  to pause/unpause
+	 * @param button a button as a {@link PauseButton}.
 	 */
 	public static void initializeInstance(SimulationScene scene, PauseButton button) {
 		instance = new SimulationPauseService(scene, button);

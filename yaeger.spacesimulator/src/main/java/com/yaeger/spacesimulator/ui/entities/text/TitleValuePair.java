@@ -11,7 +11,7 @@ import com.yaeger.spacesimulator.ui.entities.IUpdatableValue;
 
 /**
  * A {@code TitleValuePair} is a concrete implementation of
- * {@link compositeEntity}, which is used to create a pair of a title and value
+ * {@link CompositeEntity}, which is used to create a pair of a title and value
  * of a specific type.
  *
  * @param <T> the type of the value to be displayed.

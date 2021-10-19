@@ -19,7 +19,7 @@ public class PreviewObject extends Circle {
 	 *
 	 * @param initialLocation the initial location as a {@link Coordinate2D}.
 	 * @param radius          the radius as a {@code double}.
-	 * @param fill            the fill color as {@link color}.
+	 * @param fill            the fill color as {@link Color}.
 	 */
 	public PreviewObject(Coordinate2D initialLocation, double radius, Color fill) {
 		super(initialLocation, radius * Double.parseDouble(ConfigService.getValue("planet-radius-scale")), fill);

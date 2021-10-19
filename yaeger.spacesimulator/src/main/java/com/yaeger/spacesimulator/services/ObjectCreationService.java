@@ -25,9 +25,9 @@ public class ObjectCreationService {
 
 	/**
 	 * Used to add a {@link Planet} to the {@link SimulationScene} for the given
-	 * {@link ObjectPlacementDto}.
+	 * {@link ObjectPlacementDTO}.
 	 *
-	 * @param data the initial data as a {@link ObjectPlacementDto.}
+	 * @param data the initial data as a {@link ObjectPlacementDTO}.
 	 */
 	public void addPlanet(ObjectPlacementDTO data) {
 		Planet planet = new Planet(new Coordinate2D(data.getStartPosition()),
@@ -40,9 +40,9 @@ public class ObjectCreationService {
 
 	/**
 	 * Used to add a {@link CentrePlanet} to the {@link SimulationScene} for the
-	 * given {@link ObjectPlacementDto}.
+	 * given {@link ObjectPlacementDTO}.
 	 *
-	 * @param data the initial data as a {@link ObjectPlacementDto.}
+	 * @param data the initial data as a {@link ObjectPlacementDTO}.
 	 */
 	public void addCentrePlanet(ObjectPlacementDTO data) {
 		CentrePlanet planet = new CentrePlanet(new Coordinate2D(data.getStartPosition()),
@@ -55,6 +55,7 @@ public class ObjectCreationService {
 	 * Retrieve an instance of this service class
 	 *
 	 * @return an instance of this singleton service class
+	 * @param scene the scene as a {@link SimulationScene}.
 	 */
 	public static ObjectCreationService getInstance(SimulationScene scene) {
 		if (instance == null)

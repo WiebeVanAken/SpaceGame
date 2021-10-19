@@ -23,7 +23,7 @@ public class SimulationUpdateService {
 	}
 
 	/**
-	 * Calculate & update all the positions of the simulationobjects
+	 * Calculate and update all the positions of the simulationobjects
 	 *
 	 * @param simulationObjects is the list of all simulationobjects
 	 */
@@ -40,7 +40,7 @@ public class SimulationUpdateService {
 	/**
 	 * Process the physics calculations for all simulation objects
 	 *
-	 * @param objects
+	 * @param objects the objects as {@code ArrayList<SimulationObject>}.
 	 */
 	private void processPhysicsCalculations(ArrayList<SimulationObject> objects) {
 		double distanceSquared, distance;
@@ -67,7 +67,7 @@ public class SimulationUpdateService {
 	/**
 	 * Update all the objects in the scene
 	 *
-	 * @param objects
+	 * @param objects the objects as {@code ArrayList<SimulationObject>}.
 	 */
 	private void updateObjects(ArrayList<SimulationObject> objects) {
 		objects.forEach(obj -> {
@@ -81,8 +81,7 @@ public class SimulationUpdateService {
 	/**
 	 * Remove all objects which should be removed from the simulation
 	 *
-	 * @param objects
-	 * @param objectsToRemove
+	 * @param objects the objects as {@code ArrayList<SimulationObject>}.
 	 */
 	private void removeObjects(ArrayList<SimulationObject> objects) {
 		this.objectsToBeRemoved.forEach(obj -> {

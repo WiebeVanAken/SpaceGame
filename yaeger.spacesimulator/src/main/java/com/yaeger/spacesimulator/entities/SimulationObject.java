@@ -159,7 +159,7 @@ public abstract class SimulationObject extends DynamicCircleEntity
 
 	/**
 	 * Return the vector this object uses internally to move in a specific
-	 * direction. {@link Movable.getDirection()} can at times return a vector which
+	 * direction. {@code Movable.getDirection()} can at times return a vector which
 	 * is equal to this vector, this vector is not used by the physics calculator.
 	 *
 	 * @return A {@link Coordinate2D} vector which is used internally to move this
@@ -195,8 +195,7 @@ public abstract class SimulationObject extends DynamicCircleEntity
 	}
 
 	/**
-	 * Return the angle of this object moves at around the screen. This angle is
-	 * decided by the {@link SimulationObject.getMovementDirection} vector.
+	 * Return the angle of this object moves at around the screen.
 	 *
 	 * @return The angle this object moves at around the screen.
 	 */

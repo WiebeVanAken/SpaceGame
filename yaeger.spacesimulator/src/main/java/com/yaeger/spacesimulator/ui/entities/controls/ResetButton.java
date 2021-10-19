@@ -30,7 +30,7 @@ public class ResetButton extends SimpleButton {
 
 	/**
 	 * Called when the mouse button is released and will reset the simulation by
-	 * calling {@link SimulationScene.resetSimulation()}.
+	 * calling {@code SimulationScene.resetSimulation()}.
 	 */
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D coordinate2d) {
