@@ -7,11 +7,24 @@ import com.yaeger.spacesimulator.ui.entities.IObserver;
 import com.yaeger.spacesimulator.ui.entities.controls.DensityValueControl;
 import com.yaeger.spacesimulator.ui.entities.controls.VolumeValueControl;
 
+/**
+ * A {@code ControlPanel} is a concrete implementation of {@link Panel}, which
+ * is used to create a control panel that consists of a
+ * {@link VolumeValueControl} and {@link DensityValueControl}.
+ *
+ */
 public class ControlPanel extends Panel {
 
 	private VolumeValueControl volumeValueControl;
 	private DensityValueControl densityValueControl;
 
+	/**
+	 * Create a new instance of this {@link ControlPanel} for the given location and
+	 * size.
+	 *
+	 * @param coordinate2d the location as a {@link Coordinate2D}.
+	 * @param size         the size as a {@link Size}.
+	 */
 	public ControlPanel(Coordinate2D coordinate2d, Size size) {
 		super(coordinate2d, size);
 
@@ -36,11 +49,21 @@ public class ControlPanel extends Panel {
 
 	}
 
+	/**
+	 * Used to start observing the volume value control of this control panel.
+	 *
+	 * @param observer the observer as a {@link IObserver}.
+	 */
 	public void observeVolumeValueControl(IObserver<Double> observer) {
 		volumeValueControl.observe(observer);
 		observer.update(volumeValueControl, volumeValueControl.getValue());
 	}
 
+	/**
+	 * Used to start observing the density value control of this control panel.
+	 *
+	 * @param observer the observer as a {@link IObserver}.
+	 */
 	public void observeDensityValueControl(IObserver<Double> observer) {
 		densityValueControl.observe(observer);
 		observer.update(densityValueControl, densityValueControl.getValue());

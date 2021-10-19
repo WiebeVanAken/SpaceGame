@@ -7,14 +7,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>16</java.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>13</version>
-        </dependency>
+	    <dependency>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-controls</artifactId>
+		    <version>17</version>
+	  	</dependency>
         <dependency>
             <groupId>com.github.han-yaeger</groupId>
             <artifactId>yaeger</artifactId>
@@ -48,19 +50,14 @@
                     <mainClass>com.yaeger.spacesimulator.Program</mainClass>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
-                <executions>
-                    <execution>
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>com.yaeger.spacesimulator.Program</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+             <plugin>
+		        <groupId>org.openjfx</groupId>
+		        <artifactId>javafx-maven-plugin</artifactId>
+		        <version>0.0.8</version>
+        		<configuration>
+            		<mainClass>com.yaeger.spacesimulator.Program</mainClass>
+        		</configuration>
+    		</plugin>
         </plugins>
     </build>
 </project>
