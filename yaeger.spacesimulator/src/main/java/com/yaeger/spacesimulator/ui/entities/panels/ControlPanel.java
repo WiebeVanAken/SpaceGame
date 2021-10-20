@@ -68,4 +68,16 @@ public class ControlPanel extends Panel {
 		densityValueControl.observe(observer);
 		observer.update(densityValueControl, densityValueControl.getValue());
 	}
+
+	/**
+	 * Used to check if the location of this {@link Coordinate2D} is inside the
+	 * boundaries of this {@link ControlPanel}.
+	 *
+	 * @param pos the position as a {@link Coordinate2D}
+	 * @return the result as a {@code boolean}.
+	 */
+	public boolean isInsideBoundary(Coordinate2D pos) {
+		return pos.getX() > getAnchorLocation().getX() && pos.getX() < getAnchorLocation().getX() + getWidth()
+				&& pos.getY() > getAnchorLocation().getY() - getHeight() && pos.getY() < getAnchorLocation().getY();
+	}
 }
