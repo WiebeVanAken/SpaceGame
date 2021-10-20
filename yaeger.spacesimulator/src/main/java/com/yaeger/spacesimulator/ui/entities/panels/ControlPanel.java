@@ -77,9 +77,7 @@ public class ControlPanel extends Panel {
 	 * @return the result as a {@code boolean}.
 	 */
 	public boolean isInsideBoundary(Coordinate2D pos) {
-		if (pos.getX() > getAnchorLocation().getX() && pos.getX() < getAnchorLocation().getX() + getWidth()
-				&& pos.getY() > getAnchorLocation().getY() - getHeight() && pos.getY() < getAnchorLocation().getY())
-			return true;
-		return false;
+		return pos.getX() > getAnchorLocation().getX() && pos.getX() < getAnchorLocation().getX() + getWidth()
+				&& pos.getY() > getAnchorLocation().getY() - getHeight() && pos.getY() < getAnchorLocation().getY();
 	}
 }
