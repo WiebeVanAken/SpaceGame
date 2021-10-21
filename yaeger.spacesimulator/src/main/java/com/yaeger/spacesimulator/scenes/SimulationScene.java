@@ -131,7 +131,7 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void onMouseButtonReleased(MouseButton button, Coordinate2D mousePos) {
-		if (!locationIsInControlPanel(mousePos))
+		if (!controlPanel.isInsideBoundary(mousePos))
 			if (button.name() == MouseButton.PRIMARY.toString() && this.objectPlacementDto.getPlacing()) {
 				if (this.simulationObjects.size() == 0)
 					ObjectCreationService.getInstance().addCentrePlanet(this.objectPlacementDto);
@@ -145,7 +145,7 @@ public class SimulationScene extends DynamicScene
 
 	@Override
 	public void onMouseMovedWhileDragging(Coordinate2D mousePos) {
-		if (!locationIsInControlPanel(mousePos))
+		if (!controlPanel.isInsideBoundary(mousePos))
 			if (objectPlacementDto.getPlacing()) {
 				objectPlacementDto.setStopPosition(mousePos);
 			} else {
@@ -177,22 +177,6 @@ public class SimulationScene extends DynamicScene
 			o.remove();
 			iterator.remove();
 		}
-	}
-
-	/**
-	 * Used to check if the location of this {@link Coordinate2D} is inside the
-	 * boundaries of the controlPanel that belongs to this {@link SimulationScene}.
-	 *
-	 * @param pos the position as a {@link Coordinate2D}
-	 * @return the result as a {@code boolean}.
-	 */
-	private boolean locationIsInControlPanel(Coordinate2D pos) {
-		if (pos.getX() > controlPanel.getAnchorLocation().getX()
-				&& pos.getX() < controlPanel.getAnchorLocation().getX() + controlPanel.getWidth()
-				&& pos.getY() > controlPanel.getAnchorLocation().getY() - controlPanel.getHeight()
-				&& pos.getY() < controlPanel.getAnchorLocation().getY())
-			return true;
-		return false;
 	}
 
 }
